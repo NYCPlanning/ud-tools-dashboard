@@ -5,8 +5,8 @@ class CurrentSiteScenario extends Component {
     constructor(props){
         super();
         this.state = {
-            scenario: props.scenarios[0], // default to first in list
-            site: props.sites[0]
+            scenario: null, // default to first in list
+            site: null
         };
     }
 

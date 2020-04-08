@@ -7,16 +7,18 @@ import CurrentSiteScenario from './components/CurrentSiteScenario';
 const URL = 'ws://localhost:4649/Dashboard'
 
 class App extends Component {
-
-  state = {
-    status: false,
-    scenarios: ['SCN_1', 'SCN_2'],
-    sites: ['1', '2'],
-    currentscenario: null,
-    currentsite: null,
-    message: {}
-    //messages: []
-  }
+  constructor(props){
+    super();
+    this.state = {
+      status: false,
+      scenarios: [],
+      sites: [],
+      currentscenario: null,
+      currentsite: null,
+      message: {}
+      //messages: []
+    };
+  };
 
 
   // websockets
@@ -31,10 +33,15 @@ class App extends Component {
     }
 
     this.ws.onmessage = evt => {
-      const message = JSON.parse(evt.data)
+      let message = JSON.parse(evt.data);
+      message.body = JSON.parse(message.body);
       this.setState(state => ({message: message}));
       console.log(message);
       // then do different things to handle input message
+
+      if (message.action == "updateSiteScenarioList") {
+        this.setState(message.body);
+      }
       //const message = evt.data
       //this.addMessage(message)
     }
