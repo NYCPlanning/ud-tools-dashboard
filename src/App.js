@@ -1,61 +1,72 @@
 import React, { Component } from 'react';
 import './App.css';
-import MapPanel from './components/MapPanel.js';
+import MapPanel from './components/MapPanel';
+import CurrentSiteScenario from './components/CurrentSiteScenario';
 
 // url for the websockets service
-const URL = 'ws://localhost:4649/Echo'
+const URL = 'ws://localhost:4649/Dashboard'
 
 class App extends Component {
 
   state = {
     status: false,
-    messages: []
+    scenarios: ['SCN_1', 'SCN_2'],
+    sites: ['1', '2'],
+    currentscenario: null,
+    currentsite: null,
+    message: {}
+    //messages: []
   }
+
+
+  // websockets
 
   ws = new WebSocket(URL)
 
   componentDidMount() {
     this.ws.onopen = () => {
-      // on connecting, do nothing but log it to the console
-      console.log('connected')
-      this.addMessage("Connected...")
-      this.changeStatus(true);
+      //this.addMessage("Connected...")
+      console.log("connected")
+      this.setStatus(true);
     }
 
     this.ws.onmessage = evt => {
-      // on receiving a message, add it to the list of messages
-      //const message = JSON.parse(evt.data)
-      const message = evt.data
-      this.addMessage(message)
+      const message = JSON.parse(evt.data)
+      this.setState(state => ({message: message}));
+      console.log(message);
+      // then do different things to handle input message
+      //const message = evt.data
+      //this.addMessage(message)
     }
 
     this.ws.onclose = () => {
       console.log('disconnected')
+      this.setStatus(false);
+
       // automatically try to reconnect on connection loss
-      this.changeStatus(false);
       this.setState({
         ws: new WebSocket(URL),
       })
     }
 
     this.ws.onerror = () => {
-      console.log("No connection...");
-      this.changeStatus(false);
+      console.log("error");
+      this.setStatus(false);
     }
   }
 
-  changeStatus = status => 
+  setStatus = status => 
     this.setState(state => ({ status: status}))
 
-  addMessage = message =>
-    this.setState(state => ({ messages: [message, ...state.messages] }))
+  // addMessage = message =>
+  //   this.setState(state => ({ messages: [message, ...state.messages] }))
 
-  submitMessage = messageString => {
+  submitMessage = (action, messageString) => {
     // on submitting the ChatInput form, send the message, add it to the list and reset the input
-    //const message = { name: this.state.name, message: messageString }
-    const message = messageString
-    this.ws.send(message)
-    this.addMessage(message)
+    const message = { action: action, body: messageString }
+    //const message = messageString
+    this.ws.send(JSON.stringify(message))
+    //this.addMessage(message)
   }
 
   render() {
@@ -86,7 +97,7 @@ class App extends Component {
           <div className="seven columns">
             <MapPanel 
               ws={this.ws}
-              onSubmitMessage={messageString => this.submitMessage(messageString)}
+              onSubmitMessage={messageString => this.submitMessage("setSiteBounds", messageString)}
             />
             <div id="info">
               <span id="status">◼︎</span>
@@ -97,6 +108,7 @@ class App extends Component {
             <p>First create a set of empty layers for your new model using the "Populate Layers" button below. You can run the Rhino Command <code>CheckLayers</code> to check that your model layers are set up correctly. If your model is missing expected layers, it will repopulate the Layer table for you.</p>
             <p>Next, using the map in the Dashboard, use your cursor to draw a polygon around your site boundary. This area can be a single building, a block or a whole neighborhood – just be aware a larger area will take longer to import than something small. Click points until you have an outline, then click the beginning of the line to complete. This will create a project boundary in the Rhino model.</p>
             <p>In Rhino, you can now run the command <code>ImportModel</code>. You may need to wait a few seconds, but when it's completed you should see a full 3D site model and several 2D map layers appear in the Rhino window.</p>
+            <button onClick={() => { this.submitMessage("ImportModel", "Empty") }}>Import Model</button>
           </div>
         </div>
 
@@ -117,10 +129,15 @@ class App extends Component {
         </div>
 
         <div className="row">
-          <div className="seven columns">
+          <div className="twelve column">
             <h2>Model Sites</h2>
           </div>
-          <div className="five columns">
+        </div>
+        <div className="row">
+          <div className="seven columns">
+            <CurrentSiteScenario scenarios={this.state.scenarios} sites={this.state.sites} />
+          </div>
+          <div className="five columns u-pull-right">
             <p>Now your model is set up to start creating building massings under the different scenarios. Select the scenario you want to work on first in the Dashboard, the tool will automatically show all the correct scenario layers and hide the others in Rhino.</p>
             <p>Based on the site definitions in the previous step, the Dashboard should also show a drop-down menu of available sites. Choose which one you'd like to work on first to begin modeling - it will default to the first in the list. If you're satisfied with what you see, run the <code>BakeCurrentMassing</code> command in Rhino and the building will be inserted into your model.</p>
             <p>Otherwise, under Parameters, you can choose to override what's set by the zoning assumptions. Be aware that there will be no record of what's overridden, and any exports will include the original zoning district when data is exported.</p>
