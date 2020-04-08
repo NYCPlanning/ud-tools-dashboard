@@ -13,8 +13,8 @@ class App extends Component {
       status: false,
       scenarios: [],
       sites: [],
-      currentscenario: null,
-      currentsite: null,
+      currentscenario: "None",
+      currentsite: "0",
       message: {}
       //messages: []
     };
