@@ -32,8 +32,7 @@ class CurrentSiteScenario extends Component {
             site: this.state.site,
             scenario: this.state.scenario
         }
-        //console.log(e.target);
-        console.log(messageBody);
+        
         this.props.onSubmitMessage(JSON.stringify(messageBody));
     }
 

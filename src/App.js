@@ -20,7 +20,6 @@ class App extends Component {
     };
   };
 
-
   // websockets
 
   ws = new WebSocket(URL)
@@ -28,7 +27,7 @@ class App extends Component {
   componentDidMount() {
     this.ws.onopen = () => {
       //this.addMessage("Connected...")
-      console.log("connected")
+      console.log("WS connected")
       this.setStatus(true);
     }
 
@@ -36,10 +35,10 @@ class App extends Component {
       let message = JSON.parse(evt.data);
       message.body = JSON.parse(message.body);
       this.setState(state => ({message: message}));
-      console.log(message);
+      //console.log(message);
       // then do different things to handle input message
 
-      if (message.action == "updateSiteScenarioList") {
+      if (message.action === "updateSiteScenarioList") {
         this.setState(message.body);
       }
       //const message = evt.data
@@ -47,7 +46,7 @@ class App extends Component {
     }
 
     this.ws.onclose = () => {
-      console.log('disconnected')
+      console.log('WS disconnected')
       this.setStatus(false);
 
       // automatically try to reconnect on connection loss
@@ -57,7 +56,7 @@ class App extends Component {
     }
 
     this.ws.onerror = () => {
-      console.log("error");
+      console.log("WS error");
       this.setStatus(false);
     }
   }

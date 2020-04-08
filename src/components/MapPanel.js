@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import {Map, View, MapEvent} from 'ol';
+import {Map, View} from 'ol';
 import {Tile as TileLayer, Vector as VectorLayer} from 'ol/layer';
-import {Vector as VectorSource, Stamen, OSM, XYZ} from 'ol/source';
+import {Vector as VectorSource, Stamen} from 'ol/source';
 import {fromLonLat} from 'ol/proj';
 import {register} from 'ol/proj/proj4';
 import {WKT} from 'ol/format';
@@ -63,7 +63,6 @@ class MapPanel extends Component {
               featureGeom.transform('EPSG:3857', 'EPSG:2263');
     
               var wktText = format.writeFeature(feature);
-              console.log(wktText);
               // here's where you would define the "send" event
               
               t.setState({ message: wktText})
