@@ -135,7 +135,11 @@ class App extends Component {
         </div>
         <div className="row">
           <div className="seven columns">
-            <CurrentSiteScenario scenarios={this.state.scenarios} sites={this.state.sites} />
+            <CurrentSiteScenario 
+              scenarios={this.state.scenarios} 
+              sites={this.state.sites}
+              onSubmitMessage={messageJSON => this.submitMessage("setCurrentSiteScenario", messageJSON)}
+            />
           </div>
           <div className="five columns u-pull-right">
             <p>Now your model is set up to start creating building massings under the different scenarios. Select the scenario you want to work on first in the Dashboard, the tool will automatically show all the correct scenario layers and hide the others in Rhino.</p>
