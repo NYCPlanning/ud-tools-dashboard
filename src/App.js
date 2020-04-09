@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 import MapPanel from './components/MapPanel';
 import CurrentSiteScenario from './components/CurrentSiteScenario';
+import SiteTable from './components/SiteTable';
 
 // url for the websockets service
 const URL = 'ws://localhost:4649/Dashboard'
@@ -13,8 +14,8 @@ class App extends Component {
       status: false,
       scenarios: [],
       sites: [],
-      currentscenario: "None",
-      currentsite: "0",
+      currentScenario: {},
+      currentSite: {},
       message: {}
       //messages: []
     };
@@ -35,11 +36,15 @@ class App extends Component {
       let message = JSON.parse(evt.data);
       message.body = JSON.parse(message.body);
       this.setState(state => ({message: message}));
-      //console.log(message);
+      console.log(message);
       // then do different things to handle input message
 
       if (message.action === "updateSiteScenarioList") {
         this.setState(message.body);
+      }
+
+      if (message.action === "updateCurrentSiteObject") {
+        this.setState({currentSite: message.body});
       }
       //const message = evt.data
       //this.addMessage(message)
@@ -161,20 +166,7 @@ class App extends Component {
             <h2>Summary</h2>
           </div>
           <div className="twelve columns">
-            <table>
-              <tr>
-                <th>Site ID</th>
-                <th>Total GFA</th>
-                <th>Total FAR</th>
-                <th>Allowed FAR</th>
-              </tr>
-              <tr>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-              </tr>
-            </table>
+            <SiteTable site={this.state.currentSite} />
           </div>
         </div>
 

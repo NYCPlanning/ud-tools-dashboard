@@ -39,11 +39,11 @@ class CurrentSiteScenario extends Component {
     render() {
         return (
         <div>
-            <label for="scenario">Scenario</label>
+            <label htmlFor="scenario">Scenario</label>
             <select id="scenario" onChange={this.handleChange.bind(this)} value={this.state.scenario}>
                 {this.props.scenarios.map((x,y) => <option key={y}>{x}</option>)}
             </select>
-            <label for="site">Site</label>
+            <label htmlFor="site">Site</label>
             <select id="site" onChange={this.handleChange.bind(this)} value={this.state.site}>
                 {this.props.sites.map((x,y) => <option key={y}>{x}</option>)}
             </select>
