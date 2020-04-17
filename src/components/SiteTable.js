@@ -26,13 +26,13 @@ class SiteTable extends Component {
                             <th>Total</th>
                         </tr>
                         <tr>
-                            <th>{this.formatNum(this.props.site.ResidentialGFA)}</th>
-                            <th>{this.formatNum(this.props.site.CommunityFacilityGFA)}</th>
-                            <th>{this.formatNum(this.props.site.CommercialGFA)}</th>
-                            <th>{this.formatNum(this.props.site.ManufacturingGFA)}</th>
-                            <th>{this.formatNum(this.props.site.ParkingGFAProvided)}</th>
-                            <th>{this.formatNum(this.props.site.LoadingGFAProvided)}</th>
-                            <th>{this.formatNum(this.props.site.TotalGFA)}</th>
+                            <th>{this.formatNum(this.props.site.GFA.Residential)}</th>
+                            <th>{this.formatNum(this.props.site.GFA.CommunityFacility)}</th>
+                            <th>{this.formatNum(this.props.site.GFA.Commercial)}</th>
+                            <th>{this.formatNum(this.props.site.GFA.Manufacturing)}</th>
+                            <th>{this.formatNum(this.props.site.GFA.ParkingProvided)}</th>
+                            <th>{this.formatNum(this.props.site.GFA.LoadingProvided)}</th>
+                            <th>{this.formatNum(this.props.site.GFA.Total)}</th>
                         </tr>
                     </table>
                 </div>
