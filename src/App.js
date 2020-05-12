@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
-import MapPanel from './components/MapPanel'
 import CurrentSiteScenario from './components/CurrentSiteScenario'
 import SiteTable from './components/SiteTable'
 import Status from './components/Status'
+import MapPanel from './components/MapPanel'
 
 // url for the websockets service
 const URL = 'ws://localhost:4649/Dashboard'
@@ -84,28 +84,13 @@ class App extends Component {
 
   render() {
     return (
-      <div className="flex flex-col m-4 divide-y divide-gray-400">
+      <div className="flex flex-col h-screen w-full p-4 divide-y-8 divide-white">
 
         <Status connected={this.state.connected} />
-        <div className="row">
-          <div className="twelve column text-red-700">
-            <h2 className="text-red-700">Import Context</h2>
-          </div>
-        </div>
-        <div className="row">
-          <div className="seven columns">
-            <MapPanel 
-              ws={this.ws}
-              onSubmitMessage={messageString => this.submitMessage("setSiteBounds", messageString)}
-            />
-          </div>
-          <div className="five columns">
-            <p>First create a set of empty layers for your new model using the "Populate Layers" button below. You can run the Rhino Command <code>CheckLayers</code> to check that your model layers are set up correctly. If your model is missing expected layers, it will repopulate the Layer table for you.</p>
-            <p>Next, using the map in the Dashboard, use your cursor to draw a polygon around your site boundary. This area can be a single building, a block or a whole neighborhood – just be aware a larger area will take longer to import than something small. Click points until you have an outline, then click the beginning of the line to complete. This will create a project boundary in the Rhino model.</p>
-            <p>In Rhino, you can now run the command <code>ImportModel</code>. You may need to wait a few seconds, but when it's completed you should see a full 3D site model and several 2D map layers appear in the Rhino window.</p>
-            <button onClick={() => { this.submitMessage("ImportModel", "Empty") }}>Import Model</button>
-          </div>
-        </div>
+        <MapPanel ws={this.ws} 
+                  onSubmitMessage={messageString => this.submitMessage("setSiteBounds", messageString)}
+                  textUrl='https://raw.githubusercontent.com/NYCPlanning/ud-digital-practice/master/docs/tutorials/import-model.md'
+                  />
 
         <div className="row">
           <div className="seven columns">
