@@ -1,0 +1,56 @@
+/* below, pasted from static mockup */
+
+html {
+    font-size: 8px;
+  }
+  
+  h1, h2, h3, h4 {
+    font-weight: bold;
+  }
+  
+  #mapTarget {
+    width: 100%;
+    height:400px;
+  }
+  
+  #info {
+    max-height: 20vh;
+    overflow: hidden;
+    font-family:'Courier New', Courier, monospace;
+    font-size: 0.9em;
+    padding-top: 1em;
+  }
+  
+  #status {
+    color: red;
+  }
+  
+  button {
+    border: 1px solid black;
+    border-radius: 0px;
+    color: black;
+    text-transform: unset;
+  }
+  
+  #footer {
+    margin-top: 30px;
+    background: orange;
+    height: 60px;
+  }
+
+  /* from index.css */
+  
+  body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+      'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+      sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  
+  code {
+    font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+      monospace;
+  }
+  

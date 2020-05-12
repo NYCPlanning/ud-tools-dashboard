@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import './App.css';
 import MapPanel from './components/MapPanel';
 import CurrentSiteScenario from './components/CurrentSiteScenario';
 import SiteTable from './components/SiteTable';
@@ -86,8 +85,8 @@ class App extends Component {
     return (
       <div className="App container">
         <div className="row">
-          <div className="twelve column">
-            <h2>Import Context</h2>
+          <div className="twelve column text-red-700">
+            <h2 className="text-red-700">Import Context</h2>
           </div>
         </div>
         <div className="row">
