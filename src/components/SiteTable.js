@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 
 class SiteTable extends Component {
-    // constructor(props){
-    //     super();
-    //     this.state = {
-    //         site: {}
-    //     };
-    // }
+    constructor(props){
+        super();
+        this.state = {
+            site: {}
+        };
+    }
 
     formatNum = (n) => { return n.toLocaleString(undefined, {maximumFractionDigits:0}); };
 
