@@ -73,6 +73,8 @@ class App extends Component {
   //   this.setState(state => ({ messages: [message, ...state.messages] }))
 
   submitMessage = (action, messageString) => {
+    console.log("triggered update message")
+    console.log(action, messageString)
     // on submitting the ChatInput form, send the message, add it to the list and reset the input
     const message = { action: action, body: messageString }
     //const message = messageString
@@ -83,22 +85,6 @@ class App extends Component {
   render() {
     return (
       <div className="App container">
-        {/* <div className="row">
-          <div className="twelve column">
-            <h1>UD Tools</h1>
-          </div>
-        </div> */}
-
-        <div className="row">
-          <div className="seven columns">
-            <h2>Start the Plugin</h2>
-          </div>
-          <div className="five columns u-pull-right">
-            <p>After opening a new empty document in Rhino, launch the Dashboard with the <code>LaunchDashboard</code> command. The dashboard provides basic controls for the plugin alongside instructions and a live view of the underlying data.</p>
-          </div>
-        </div>
-        
-
         <div className="row">
           <div className="twelve column">
             <h2>Import Context</h2>
