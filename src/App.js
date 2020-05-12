@@ -1,7 +1,8 @@
-import React, { Component } from 'react';
-import MapPanel from './components/MapPanel';
-import CurrentSiteScenario from './components/CurrentSiteScenario';
-import SiteTable from './components/SiteTable';
+import React, { Component } from 'react'
+import MapPanel from './components/MapPanel'
+import CurrentSiteScenario from './components/CurrentSiteScenario'
+import SiteTable from './components/SiteTable'
+import Status from './components/Status'
 
 // url for the websockets service
 const URL = 'ws://localhost:4649/Dashboard'
@@ -10,7 +11,7 @@ class App extends Component {
   constructor(props){
     super();
     this.state = {
-      status: false,
+      connected: false,
       scenarios: [],
       sites: [],
       currentScenario: {},
@@ -28,7 +29,7 @@ class App extends Component {
     this.ws.onopen = () => {
       //this.addMessage("Connected...")
       console.log("WS connected")
-      this.setStatus(true);
+      this.setConnected(true);
     }
 
     this.ws.onmessage = evt => {
@@ -51,7 +52,7 @@ class App extends Component {
 
     this.ws.onclose = () => {
       console.log('WS disconnected')
-      this.setStatus(false);
+      this.setConnected(false);
 
       // automatically try to reconnect on connection loss
       this.setState({
@@ -61,12 +62,12 @@ class App extends Component {
 
     this.ws.onerror = () => {
       console.log("WS error");
-      this.setStatus(false);
+      this.setConnected(false);
     }
   }
 
-  setStatus = status => 
-    this.setState(state => ({ status: status}))
+  setConnected = c => 
+    this.setState(state => ({ connected: c}))
 
   // addMessage = message =>
   //   this.setState(state => ({ messages: [message, ...state.messages] }))
@@ -83,7 +84,9 @@ class App extends Component {
 
   render() {
     return (
-      <div className="App container">
+      <div className="flex flex-col m-4 divide-y divide-gray-400">
+
+        <Status connected={this.state.connected} />
         <div className="row">
           <div className="twelve column text-red-700">
             <h2 className="text-red-700">Import Context</h2>
@@ -95,10 +98,6 @@ class App extends Component {
               ws={this.ws}
               onSubmitMessage={messageString => this.submitMessage("setSiteBounds", messageString)}
             />
-            <div id="info">
-              <span id="status">◼︎</span>
-              <span id="message">STATUS</span>
-            </div>
           </div>
           <div className="five columns">
             <p>First create a set of empty layers for your new model using the "Populate Layers" button below. You can run the Rhino Command <code>CheckLayers</code> to check that your model layers are set up correctly. If your model is missing expected layers, it will repopulate the Layer table for you.</p>
