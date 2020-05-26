@@ -6,6 +6,7 @@ import MapPanel from './components/MapPanel'
 import SitesList from './components/SitesList'
 import ScenariosList from './components/ScenariosList'
 import ZonesList from './components/ZonesList'
+import DocumentationPage from './components/DocumentationPage'
 
 import Layout from './layouts/default'
 
@@ -72,8 +73,8 @@ class App extends Component {
     this.ws.onmessage = evt => {
       let message = JSON.parse(evt.data);
       message.body = JSON.parse(message.body);
-      this.setState(state => ({message: message}));
-      console.log(message);
+      //this.setState(state => ({message: message}));
+      //console.log(message);
       // then do different things to handle input message
 
       if (message.action === "updateSiteScenarioList") {
@@ -81,7 +82,8 @@ class App extends Component {
       }
 
       if (message.action === "updateCurrentSiteObject") {
-        this.setState({currentSite: message.body});
+        console.log(message.body)
+        //this.setState({currentSite: message.body});
       }
       //const message = evt.data
       //this.addMessage(message)
@@ -103,6 +105,21 @@ class App extends Component {
     }
   }
 
+  componentWillUpdate(prevProps, prevState) {
+    const newSites = prevState.sites != this.state.sites && this.state.sites.length > 0
+    const newScenarios = prevState.scenarios != this.state.scenarios && this.state.scenarios.length > 0
+    const siteChanged = prevState.currentSite != this.state.currentSite
+    const scenarioChanged = prevState.currentScenario != this.state.currentScenario
+
+    if (siteChanged || scenarioChanged || newSites || newScenarios ) {
+      const messageBody = {
+        site: this.state.sites[this.state.currentSite],
+        scenario: this.state.scenarios[this.state.currentSite]
+      }
+      this.submitMessage('setCurrentSiteScenario', JSON.stringify(messageBody))
+    }
+  }
+
   render() {
     return (
       <Layout connected={this.state.connected}>
@@ -115,12 +132,8 @@ class App extends Component {
 
         <div className='mt-8'>
           <h2>Import Site & Zoning Assumptions</h2>
-          <div>
-            <p>In order to understand the zoning assumptions and site designations for your study area, you'll need to codify this in a spreadsheet format and import it into the tool. (See Tutorial writeup on "What You Need")</p>
-            <p>Once you have the <code>sites.csv</code> and <code>zoning.csv</code> files prepared, use the <code>ImportSiteAssumptions</code> and <code>ImportZoningAssumptions</code> commands to import them into your model.</p>
-            {/* If you are modifying an existing study with new site assumptions or zoning assumptions, run the `UpdateZoningAssumptions` or `UpdateSiteAssumptions` commands directly in Rhino. These will intelligently override any new information in the spreadsheet and leave any unchanged sites or zoning districts unchanged in the model. */}
-            {/* <button>Import</button> */}
-          </div>
+          <DocumentationPage docUrl='https://raw.githubusercontent.com/NYCPlanning/ud-digital-practice/develop/docs/modules/import-assumptions.md' />
+
           <SitesList 
             sites={this.state.sites} 
             current={this.state.currentSite}
@@ -136,7 +149,7 @@ class App extends Component {
           <SiteTable site={this.state.result} />
         </div>
 
-        <div className="row">
+        <div className='mt-8'>
           <div className="twelve column">
             <h2>Model Sites</h2>
           </div>
