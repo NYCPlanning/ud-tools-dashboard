@@ -11,6 +11,8 @@ import 'ol/ol.css';
 import proj4 from 'proj4';
 import ReactMarkdown from 'react-markdown'
 
+const frontMatterRegex = /^---[\s\S]*---/gi
+
 class MapPanel extends Component {
     constructor(props) {
         super(props);
@@ -32,6 +34,7 @@ class MapPanel extends Component {
     componentDidMount() {
       fetch(this.props.textUrl)
         .then(r => r.text())
+        .then(r => r.replace(frontMatterRegex, ''))
         .then(
           (result) => {
             this.setState({
@@ -87,11 +90,6 @@ class MapPanel extends Component {
               }
             }
             addInteraction(this);
-            // save map and layer references to local state
-            // this.setState({ 
-            //     map: map,
-            //     featuresLayer: featuresLayer
-            // });
         },
         (error) => {
 
@@ -107,12 +105,10 @@ class MapPanel extends Component {
 
       return (
         <div>
-          <div>
-            <h2>Import Model</h2>
-          </div>
           <div className='grid grid-cols-2 gap-4 w-full' >
             <div className='h-full w-full' ref={this.mapTarget}></div>
             <div>
+              <h2>Import Model</h2>
               <ReactMarkdown source={text}/>
               {/* <button onClick={() => { this.submitMessage("ImportModel", "Empty") }}>Import Model</button> */}
             </div>

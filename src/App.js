@@ -3,6 +3,11 @@ import CurrentSiteScenario from './components/CurrentSiteScenario'
 import SiteTable from './components/SiteTable'
 import Status from './components/Status'
 import MapPanel from './components/MapPanel'
+import SitesList from './components/SitesList'
+import ScenariosList from './components/ScenariosList'
+import ZonesList from './components/ZonesList'
+
+import Layout from './layouts/default'
 
 // url for the websockets service
 const URL = 'ws://localhost:4649/Dashboard'
@@ -14,16 +19,48 @@ class App extends Component {
       connected: false,
       scenarios: [],
       sites: [],
-      currentScenario: {},
-      currentSite: {},
+      currentScenario: 0,
+      currentSite: 0,
+      result: {
+        GFA: {
+          Residential: 0,
+          CommunityFacility: 0,
+          Commercial: 0,
+          Manufacturing: 0,
+          ParkingProvided: 0,
+          LoadingProvided: 0,
+          Total: 0
+        }
+      },
       message: {}
       //messages: []
     };
   };
 
   // websockets
-
   ws = new WebSocket(URL)
+
+  setConnected = c => 
+    this.setState(state => ({ connected: c}))
+
+  setScenario = i => 
+    this.setState(stats => ({ currentScenario: i }))
+
+  setSite = i => 
+    this.setState(stats => ({ currentSite: i }))  
+
+  // addMessage = message =>
+  //   this.setState(state => ({ messages: [message, ...state.messages] }))
+
+  submitMessage = (action, messageString) => {
+    console.log("triggered update message")
+    console.log(action, messageString)
+    // on submitting the ChatInput form, send the message, add it to the list and reset the input
+    const message = { action: action, body: messageString }
+    //const message = messageString
+    this.ws.send(JSON.stringify(message))
+    //this.addMessage(message)
+  }
 
   componentDidMount() {
     this.ws.onopen = () => {
@@ -66,46 +103,37 @@ class App extends Component {
     }
   }
 
-  setConnected = c => 
-    this.setState(state => ({ connected: c}))
-
-  // addMessage = message =>
-  //   this.setState(state => ({ messages: [message, ...state.messages] }))
-
-  submitMessage = (action, messageString) => {
-    console.log("triggered update message")
-    console.log(action, messageString)
-    // on submitting the ChatInput form, send the message, add it to the list and reset the input
-    const message = { action: action, body: messageString }
-    //const message = messageString
-    this.ws.send(JSON.stringify(message))
-    //this.addMessage(message)
-  }
-
   render() {
     return (
-      <div className="flex flex-col h-screen w-full p-4 divide-y-8 divide-white">
+      <Layout connected={this.state.connected}>
 
-        <Status connected={this.state.connected} />
-        <MapPanel ws={this.ws} 
-                  onSubmitMessage={messageString => this.submitMessage("setSiteBounds", messageString)}
-                  textUrl='https://raw.githubusercontent.com/NYCPlanning/ud-digital-practice/master/docs/tutorials/import-model.md'
-                  />
+        <MapPanel
+          ws={this.ws} 
+          onSubmitMessage={messageString => this.submitMessage("setSiteBounds", messageString)}
+          textUrl='https://raw.githubusercontent.com/NYCPlanning/ud-digital-practice/develop/docs/modules/import-model.md'
+        />
 
-        <div className="row">
-          <div className="seven columns">
-            <h2>Import Site & Zoning Assumptions</h2>
-          </div>
-          {/* <div className="seven columns">
-            <input type="file" value="YourDefaultPathAndFilename.AndExtension">Sites CSV</input>
-            <input type="file" value="YourDefaultPathAndFilename.AndExtension">Zoning CSV</input>
-          </div> */}
-          <div className="five columns u-pull-right">
+        <div className='mt-8'>
+          <h2>Import Site & Zoning Assumptions</h2>
+          <div>
             <p>In order to understand the zoning assumptions and site designations for your study area, you'll need to codify this in a spreadsheet format and import it into the tool. (See Tutorial writeup on "What You Need")</p>
             <p>Once you have the <code>sites.csv</code> and <code>zoning.csv</code> files prepared, use the <code>ImportSiteAssumptions</code> and <code>ImportZoningAssumptions</code> commands to import them into your model.</p>
             {/* If you are modifying an existing study with new site assumptions or zoning assumptions, run the `UpdateZoningAssumptions` or `UpdateSiteAssumptions` commands directly in Rhino. These will intelligently override any new information in the spreadsheet and leave any unchanged sites or zoning districts unchanged in the model. */}
             {/* <button>Import</button> */}
           </div>
+          <SitesList 
+            sites={this.state.sites} 
+            current={this.state.currentSite}
+            setSite={this.setSite}
+          />
+          <ScenariosList 
+            scenarios={this.state.scenarios} 
+            current={this.state.currentScenario}
+            setScenario={this.setScenario}
+          />
+          {/* <ZonesList sites={this.state.sites}/> */}
+
+          <SiteTable site={this.state.result} />
         </div>
 
         <div className="row">
@@ -115,11 +143,7 @@ class App extends Component {
         </div>
         <div className="row">
           <div className="seven columns">
-            <CurrentSiteScenario 
-              scenarios={this.state.scenarios} 
-              sites={this.state.sites}
-              onSubmitMessage={messageJSON => this.submitMessage("setCurrentSiteScenario", messageJSON)}
-            />
+
           </div>
           <div className="five columns u-pull-right">
             <p>Now your model is set up to start creating building massings under the different scenarios. Select the scenario you want to work on first in the Dashboard, the tool will automatically show all the correct scenario layers and hide the others in Rhino.</p>
@@ -127,15 +151,6 @@ class App extends Component {
             <p>Otherwise, under Parameters, you can choose to override what's set by the zoning assumptions. Be aware that there will be no record of what's overridden, and any exports will include the original zoning district when data is exported.</p>
             <p>If the massing you want cannot be acheived using the automated tools, Bake the closest thing you can get and then modify the model directly in Rhino. As long as the massing remains on the correct layers, in position on the site, it will still be calculated the same way as if it was auto-generated. Clicking the "Bake Parking" button will produce below-ground geometry for required parking area that can be modified manually in a similar way.</p>
             <p>Under "Summary" you'll see a breakdown of various development metrics in your model. Use the toggle at the top to switch between previewing the current site only versus totals & averages for the overall scenario.</p>
-          </div>
-        </div>
-
-        <div className="row">
-          <div className="twelve columns">
-            <h2>Summary</h2>
-          </div>
-          <div className="twelve columns">
-            <SiteTable site={this.state.currentSite} />
           </div>
         </div>
 
@@ -157,10 +172,11 @@ class App extends Component {
 
         {/* <div id="footer"></div> */}
 
-      </div>
-    );
-  }
+        {/* </div> */}
 
+      </Layout>
+    )
+  }
 }
 
 export default App;
