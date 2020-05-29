@@ -18,6 +18,7 @@ class App extends Component {
     super();
     this.state = {
       connected: false,
+      plugin: {},
       scenarios: [],
       sites: [],
       currentScenario: 0,
@@ -44,11 +45,12 @@ class App extends Component {
   setConnected = c => 
     this.setState(state => ({ connected: c}))
 
-  setScenario = i => 
-    this.setState(stats => ({ currentScenario: i }))
+  setScenario = id => 
+    this.submitMessage('setScenario', id)
 
-  setSite = i => 
-    this.setState(stats => ({ currentSite: i }))  
+  setSite = id => 
+    this.submitMessage('setSite', id)
+    //this.setState(stats => ({ currentSite: i }))  
 
   // addMessage = message =>
   //   this.setState(state => ({ messages: [message, ...state.messages] }))
@@ -74,17 +76,22 @@ class App extends Component {
       let message = JSON.parse(evt.data);
       message.body = JSON.parse(message.body);
       //this.setState(state => ({message: message}));
-      //console.log(message);
+      console.log(message);
       // then do different things to handle input message
 
-      if (message.action === "updateSiteScenarioList") {
-        this.setState(message.body);
+      // receive plugin state updates
+      if (message.action === "updatePluginState") {
+        this.setState({'plugin': message.body});
       }
 
-      if (message.action === "updateCurrentSiteObject") {
-        console.log(message.body)
-        //this.setState({currentSite: message.body});
-      }
+      // if (message.action === "updateSiteScenarioList") {
+      //   this.setState(message.body);
+      // }
+
+      // if (message.action === "updateCurrentSiteObject") {
+      //   console.log(message.body)
+      //   //this.setState({currentSite: message.body});
+      // }
       //const message = evt.data
       //this.addMessage(message)
     }
@@ -134,14 +141,17 @@ class App extends Component {
           <h2>Import Site & Zoning Assumptions</h2>
           <DocumentationPage docUrl='https://raw.githubusercontent.com/NYCPlanning/ud-digital-practice/develop/docs/modules/import-assumptions.md' />
 
+          {/* <LotsList />
+          <ZonesList /> */}
+
           <SitesList 
-            sites={this.state.sites} 
-            current={this.state.currentSite}
+            sites={this.state.plugin.Sites} 
+            current={this.state.plugin.SiteCurrent}
             setSite={this.setSite}
           />
           <ScenariosList 
-            scenarios={this.state.scenarios} 
-            current={this.state.currentScenario}
+            scenarios={this.state.plugin.Scenarios} 
+            current={this.state.plugin.ScenarioCurrent}
             setScenario={this.setScenario}
           />
           {/* <ZonesList sites={this.state.sites}/> */}
