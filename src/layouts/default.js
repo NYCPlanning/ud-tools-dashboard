@@ -5,7 +5,7 @@ import '../style/main.css'
 
 const Layout = ({ children, connected }) => {
     return(
-        <div id='root' className="grid grid-cols-4 gap-8 p-8">
+        <div id='root' className="grid grid-cols-4 gap-8 p-8 max-w-4xl">
             <Nav connected={connected} className="col-span-1" />
             <main className="col-span-3">
                 {children}
