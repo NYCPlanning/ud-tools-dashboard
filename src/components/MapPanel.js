@@ -106,6 +106,18 @@ class MapPanel extends Component {
       return (
         <div>
           <div className='grid grid-cols-2 gap-4 w-full' >
+            {/* <div>
+              <form>
+              <label >
+                Buildings
+                <input
+                  name="isGoing"
+                  type="checkbox"
+                  checked={this.state.isGoing}
+                  onChange={this.handleInputChange} />
+              </label>                
+              </form>
+            </div> */}
             <div className='h-full w-full' ref={this.mapTarget}></div>
             <div>
               <h2>Import Model</h2>
