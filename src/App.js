@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import CurrentSiteScenario from './components/CurrentSiteScenario'
 import SiteTable from './components/SiteTable'
+import SiteDetails from './components/SiteDetails'
 import Status from './components/Status'
 import MapPanel from './components/MapPanel'
 import SitesList from './components/SitesList'
@@ -156,6 +157,14 @@ class App extends Component {
           />
           {/* <ZonesList sites={this.state.sites}/> */}
 
+          { this.state.plugin.SiteCurrent && 
+            <SiteDetails 
+              site={this.state.plugin.SiteCurrent} 
+              scenarioCurrent={this.state.plugin.ScenarioCurrent.Name}
+            /> 
+          }
+          
+          
           <SiteTable site={this.state.plugin.SiteCurrent} />
         </div>
 
