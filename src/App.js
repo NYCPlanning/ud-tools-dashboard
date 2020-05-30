@@ -157,7 +157,7 @@ class App extends Component {
           />
           {/* <ZonesList sites={this.state.sites}/> */}
 
-          { this.state.plugin.SiteCurrent && 
+          { this.state.plugin.SiteCurrent && this.state.plugin.ScenarioCurrent && 
             <SiteDetails 
               site={this.state.plugin.SiteCurrent} 
               scenarioCurrent={this.state.plugin.ScenarioCurrent.Name}

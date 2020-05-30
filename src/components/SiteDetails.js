@@ -6,8 +6,8 @@ export default function SiteDetails({ site, scenarioCurrent }) {
     const lots = site.Lots.join(', ')
 
     const zoningParams = site.Scenarios[scenarioCurrent]
-    const zoningRows = Object.entries(zoningParams).map(([k, v]) => (
-        <tr>
+    const zoningRows = Object.entries(zoningParams).map(([k, v], i) => (
+        <tr key={i}>
             <td className='text-left'>{k}</td>
             <td className='text-right'>{v}</td>
         </tr>
