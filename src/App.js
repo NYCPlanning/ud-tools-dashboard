@@ -156,7 +156,7 @@ class App extends Component {
           />
           {/* <ZonesList sites={this.state.sites}/> */}
 
-          <SiteTable site={this.state.result} />
+          <SiteTable site={this.state.plugin.SiteCurrent} />
         </div>
 
         <div className='mt-8'>
