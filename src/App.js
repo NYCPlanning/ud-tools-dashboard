@@ -169,37 +169,13 @@ class App extends Component {
         </div>
 
         <div className='mt-8'>
-          <div className="twelve column">
             <h2>Model Sites</h2>
-          </div>
-        </div>
-        <div className="row">
-          <div className="seven columns">
-
-          </div>
-          <div className="five columns u-pull-right">
-            <p>Now your model is set up to start creating building massings under the different scenarios. Select the scenario you want to work on first in the Dashboard, the tool will automatically show all the correct scenario layers and hide the others in Rhino.</p>
-            <p>Based on the site definitions in the previous step, the Dashboard should also show a drop-down menu of available sites. Choose which one you'd like to work on first to begin modeling - it will default to the first in the list. If you're satisfied with what you see, run the <code>BakeCurrentMassing</code> command in Rhino and the building will be inserted into your model.</p>
-            <p>Otherwise, under Parameters, you can choose to override what's set by the zoning assumptions. Be aware that there will be no record of what's overridden, and any exports will include the original zoning district when data is exported.</p>
-            <p>If the massing you want cannot be acheived using the automated tools, Bake the closest thing you can get and then modify the model directly in Rhino. As long as the massing remains on the correct layers, in position on the site, it will still be calculated the same way as if it was auto-generated. Clicking the "Bake Parking" button will produce below-ground geometry for required parking area that can be modified manually in a similar way.</p>
-            <p>Under "Summary" you'll see a breakdown of various development metrics in your model. Use the toggle at the top to switch between previewing the current site only versus totals & averages for the overall scenario.</p>
-          </div>
+            <DocumentationPage docUrl='https://raw.githubusercontent.com/NYCPlanning/ud-digital-practice/develop/docs/modules/model-sites.md' />
         </div>
 
-        <div className="row">
-          <div className="twelve columns">
+        <div className='mt-8'>
             <h2>Export Data</h2>
-          </div>
-        </div>
-        <div className="row">
-          <div className="seven columns">
-            {/* <input type="file" />Template CSV
-            <input type="file" />Export path */}
-          </div>
-          <div className="five columns u-pull-right">
-            <p>If you want to use the model's data for sites and lots in another program, such as Excel, you can export it by running <code>ApplyScenario</code> followed by <code>ExportScenario</code>. This will save all available fields for each defined site to a new CSV file at the location you provide when prompted. You can then import this into Excel or use it as an external data source.</p>
-            {/* <button>Export</button> */}
-          </div>
+            <DocumentationPage docUrl='https://raw.githubusercontent.com/NYCPlanning/ud-digital-practice/develop/docs/modules/export-data.md' />
         </div>
 
         {/* <div id="footer"></div> */}
