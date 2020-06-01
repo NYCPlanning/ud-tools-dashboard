@@ -7,4 +7,4 @@ From the project directory, run:
 `npm install`  
 `npm start`  
 `npm run build`  
-`rclone sync ./ud-tools-dashboard/build/ ./parametric-model/plugin/`
+`rclone sync ./build/ ../parametric-model/plugin/UDTools/Dashboard/build`
