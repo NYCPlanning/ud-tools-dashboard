@@ -130,7 +130,11 @@ class App extends Component {
 
   render() {
     return (
-      <Layout connected={this.state.connected}>
+      <Layout 
+        connected={this.state.connected}
+        version={this.state.plugin.Version}
+        buildDate={this.state.plugin.BuildDate}
+      >
 
         <MapPanel
           ws={this.ws} 
