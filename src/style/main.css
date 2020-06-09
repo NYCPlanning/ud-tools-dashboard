@@ -60,3 +60,7 @@ code {
 .square {
     padding-top: 100%;
 }
+
+.adjust-top {
+    margin-top: -2em;
+}

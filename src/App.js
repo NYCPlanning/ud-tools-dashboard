@@ -9,6 +9,7 @@ import ScenariosList from './components/ScenariosList'
 import ZonesList from './components/ZonesList'
 import DocumentationPage from './components/DocumentationPage'
 import SectionHeading from './components/SectionHeading'
+import FAR from './components/FAR'
 
 import Layout from './layouts/default'
 
@@ -137,7 +138,7 @@ class App extends Component {
         buildDate={this.state.plugin.BuildDate}
       >
 
-        <div>
+        <div className="adjust-top">
           <SectionHeading heading='Import Model'/>
           <DocumentationPage docUrl='https://raw.githubusercontent.com/NYCPlanning/ud-digital-practice/develop/docs/modules/import-model.md' />
           <MapPanel
@@ -169,10 +170,13 @@ class App extends Component {
             <SiteDetails 
               site={this.state.plugin.SiteCurrent} 
               scenarioCurrent={this.state.plugin.ScenarioCurrent.Name}
-            /> 
+            />
           }
-          
-          
+
+          { this.state.plugin.SiteCurrent && this.state.plugin.ScenarioCurrent && 
+            <FAR pluginState={this.state.plugin} />
+          }
+
           <SiteTable site={this.state.plugin.SiteCurrent} />
         </div>
 

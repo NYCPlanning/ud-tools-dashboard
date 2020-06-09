@@ -1,6 +1,5 @@
-import React, { Component } from 'react';
-
-const formatNum = (n) => { return n.toLocaleString(undefined, {maximumFractionDigits:0}); };
+import React, { Component } from 'react'
+import { formatNum } from '../utils/format'
 
 export default function SiteTable({ site }) {
     return (

@@ -105,7 +105,7 @@ class MapPanel extends Component {
 
       return (
         <div>
-          <div className='grid grid-cols-2 gap-4 w-full' >
+          {/* <div className='grid grid-cols-2 gap-4 w-full' > */}
             {/* <div>
               <form>
               <label >
@@ -121,7 +121,7 @@ class MapPanel extends Component {
             <div className='w-full square relative z-0'>
               <div className='absolute top-0 bottom-0 left-0 right-0 behind' ref={this.mapTarget}></div>
             </div>
-          </div>
+          {/* </div> */}
         </div>
       )
     }
