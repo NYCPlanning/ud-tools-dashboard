@@ -8,6 +8,7 @@ import SitesList from './components/SitesList'
 import ScenariosList from './components/ScenariosList'
 import ZonesList from './components/ZonesList'
 import DocumentationPage from './components/DocumentationPage'
+import SectionHeading from './components/SectionHeading'
 
 import Layout from './layouts/default'
 
@@ -136,14 +137,17 @@ class App extends Component {
         buildDate={this.state.plugin.BuildDate}
       >
 
-        <MapPanel
-          ws={this.ws} 
-          onSubmitMessage={messageString => this.submitMessage("setSiteBounds", messageString)}
-          textUrl='https://raw.githubusercontent.com/NYCPlanning/ud-digital-practice/develop/docs/modules/import-model.md'
-        />
+        <div>
+          <SectionHeading heading='Import Model'/>
+          <DocumentationPage docUrl='https://raw.githubusercontent.com/NYCPlanning/ud-digital-practice/develop/docs/modules/import-model.md' />
+          <MapPanel
+            ws={this.ws} 
+            onSubmitMessage={messageString => this.submitMessage("setSiteBounds", messageString)}
+          />
+        </div>
 
-        <div className='mt-8'>
-          <h2>Import Site & Zoning Assumptions</h2>
+        <div>
+          <SectionHeading heading='Import Site & Zoning Assumptions' />
           <DocumentationPage docUrl='https://raw.githubusercontent.com/NYCPlanning/ud-digital-practice/develop/docs/modules/import-assumptions.md' />
 
           {/* <LotsList />

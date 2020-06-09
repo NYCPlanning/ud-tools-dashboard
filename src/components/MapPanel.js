@@ -118,11 +118,8 @@ class MapPanel extends Component {
               </label>                
               </form>
             </div> */}
-            <div className='h-full w-full' ref={this.mapTarget}></div>
-            <div>
-              <h2>Import Model</h2>
-              <ReactMarkdown source={text}/>
-              {/* <button onClick={() => { this.submitMessage("ImportModel", "Empty") }}>Import Model</button> */}
+            <div className='w-full square relative z-0'>
+              <div className='absolute top-0 bottom-0 left-0 right-0 behind' ref={this.mapTarget}></div>
             </div>
           </div>
         </div>
