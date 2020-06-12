@@ -165,18 +165,16 @@ class App extends Component {
             setScenario={this.setScenario}
           />
           {/* <ZonesList sites={this.state.sites}/> */}
-
           { this.state.plugin.SiteCurrent && this.state.plugin.ScenarioCurrent && 
             <SiteDetails 
               site={this.state.plugin.SiteCurrent} 
               scenarioCurrent={this.state.plugin.ScenarioCurrent.Name}
             />
           }
-
           { this.state.plugin.SiteCurrent && this.state.plugin.ScenarioCurrent && 
             <FAR pluginState={this.state.plugin} />
           }
-
+          <br/>
           <SiteTable site={this.state.plugin.SiteCurrent} />
         </div>
 
