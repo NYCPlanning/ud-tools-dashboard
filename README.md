@@ -8,3 +8,5 @@ From the project directory, run:
 `npm start`  
 `npm run build`  
 `rclone sync ./build/ ../parametric-model/plugin/UDTools/Dashboard/build`
+
+On the build step include a .env at the project root with "GENERATE_SOURCEMAP=false".
