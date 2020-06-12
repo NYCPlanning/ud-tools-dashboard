@@ -154,6 +154,7 @@ class App extends Component {
           {/* <LotsList />
           <ZonesList /> */}
 
+          <SectionHeading heading='Site Details' />
           <SitesList 
             sites={this.state.plugin.Sites} 
             current={this.state.plugin.SiteCurrent}

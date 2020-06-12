@@ -14,19 +14,22 @@ export default function SiteDetails({ site, scenarioCurrent }) {
     ))
     
     return (
-        <div>
-            <h3>Details</h3>
-            <div>Using lots: {lots}</div>
-            <div>Group: {site.Group}</div>
-            <div>Notes: {site.Note}</div>
-            <br/>
-            <h3>Zoning</h3>
-            <table>
-                <tbody className="divide-y divide-gray-400">
-                    {zoningRows}
-                </tbody>
-            </table>
-            <br/>
+        <div className='grid grid-cols-2 gap-4'>
+            <div>
+                <h3>Details</h3>
+                <div>Using lots: {lots}</div>
+                <div>Group: {site.Group}</div>
+                <div>Notes: {site.Note}</div>
+            </div>
+            <div>
+                <h3>Zoning</h3>
+                <table>
+                    <tbody className="divide-y divide-gray-400">
+                        {zoningRows}
+                    </tbody>
+                </table>
+                <br/>
+            </div>
         </div>
     )
 }
