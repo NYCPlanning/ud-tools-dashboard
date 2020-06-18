@@ -10,6 +10,7 @@ import ZonesList from './components/ZonesList'
 import DocumentationPage from './components/DocumentationPage'
 import SectionHeading from './components/SectionHeading'
 import FAR from './components/FAR'
+import VisualFAR from './components/VisualFAR'
 
 import Layout from './layouts/default'
 
@@ -69,6 +70,11 @@ class App extends Component {
   }
 
   componentDidMount() {
+    const cachedState = localStorage.getItem('plugin');
+    if (cachedState) {
+      this.setState({'plugin': JSON.parse(cachedState)});
+    }
+
     this.ws.onopen = () => {
       //this.addMessage("Connected...")
       console.log("WS connected")
@@ -83,8 +89,10 @@ class App extends Component {
       // then do different things to handle input message
 
       // receive plugin state updates
+      // and persist to local storage in case of reload
       if (message.action === "updatePluginState") {
         this.setState({'plugin': message.body});
+        localStorage.setItem('plugin', JSON.stringify(message.body));
       }
 
       // if (message.action === "updateSiteScenarioList") {
@@ -173,7 +181,8 @@ class App extends Component {
             />
           }
           { this.state.plugin.SiteCurrent && this.state.plugin.ScenarioCurrent && 
-            <FAR pluginState={this.state.plugin} />
+            // <FAR pluginState={this.state.plugin} />
+            <VisualFAR pluginState={this.state.plugin} />
           }
           <br/>
           <SiteTable site={this.state.plugin.SiteCurrent} />
