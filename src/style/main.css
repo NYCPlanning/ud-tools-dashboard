@@ -64,3 +64,9 @@ code {
 .adjust-top {
     margin-top: -2em;
 }
+
+.label {
+    font-size: 75%;
+    font-family: monospace, monospace;
+    letter-spacing: -0.03em;
+}

@@ -1,16 +1,16 @@
-import React, { Component } from 'react'
-import CurrentSiteScenario from './components/CurrentSiteScenario'
-import SiteTable from './components/SiteTable'
-import SiteDetails from './components/SiteDetails'
-import Status from './components/Status'
-import MapPanel from './components/MapPanel'
-import SitesList from './components/SitesList'
-import ScenariosList from './components/ScenariosList'
-import ZonesList from './components/ZonesList'
-import DocumentationPage from './components/DocumentationPage'
-import SectionHeading from './components/SectionHeading'
-import FAR from './components/FAR'
-import VisualFAR from './components/VisualFAR'
+import React, { Component } from 'react';
+import CurrentSiteScenario from './components/CurrentSiteScenario';
+import SiteTable from './components/SiteTable';
+import SiteDetails from './components/SiteDetails';
+import Status from './components/Status';
+import MapPanel from './components/MapPanel';
+import SitesList from './components/SitesList';
+import ScenariosList from './components/ScenariosList';
+import ZonesList from './components/ZonesList';
+import DocumentationPage from './components/DocumentationPage';
+import SectionHeading from './components/SectionHeading';
+import FAR from './components/FAR';
+import VisualFARChart from './components/VisualFARChart';
 
 import Layout from './layouts/default'
 
@@ -182,7 +182,7 @@ class App extends Component {
           }
           { this.state.plugin.SiteCurrent && this.state.plugin.ScenarioCurrent && 
             // <FAR pluginState={this.state.plugin} />
-            <VisualFAR pluginState={this.state.plugin} />
+            <VisualFARChart pluginState={this.state.plugin} />
           }
           <br/>
           <SiteTable site={this.state.plugin.SiteCurrent} />
