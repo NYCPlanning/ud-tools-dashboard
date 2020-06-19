@@ -173,19 +173,18 @@ class App extends Component {
             current={this.state.plugin.ScenarioCurrent}
             setScenario={this.setScenario}
           />
-          {/* <ZonesList sites={this.state.sites}/> */}
+          <br/>
+          { this.state.plugin.SiteCurrent && this.state.plugin.ScenarioCurrent && 
+            <SiteTable pluginState={this.state.plugin} />
+          }
+          <br/>
           { this.state.plugin.SiteCurrent && this.state.plugin.ScenarioCurrent && 
             <SiteDetails 
               site={this.state.plugin.SiteCurrent} 
               scenarioCurrent={this.state.plugin.ScenarioCurrent.Name}
             />
           }
-          { this.state.plugin.SiteCurrent && this.state.plugin.ScenarioCurrent && 
-            // <FAR pluginState={this.state.plugin} />
-            <VisualFARChart pluginState={this.state.plugin} />
-          }
-          <br/>
-          <SiteTable site={this.state.plugin.SiteCurrent} />
+          {/* <ZonesList sites={this.state.sites}/> */}
         </div>
 
         <div className='mt-8'>

@@ -1,36 +1,63 @@
-import React, { Component } from 'react'
-import { formatNum } from '../utils/format'
+import React from 'react';
+import { formatNum } from '../utils/format';
+import * as color from '../utils/color';
+import VisualFAR from './VisualFAR';
 
-export default function SiteTable({ site }) {
+export default function SiteTable({ pluginState }) {
+    const zone = pluginState.SiteCurrent.Scenarios[pluginState.ScenarioCurrent.Name];
+    const site = pluginState.SiteCurrent;
+    const zoningLotArea = site.ZoningLotArea;
+    const utilized = {
+      R: site.ZFA.Residential / zoningLotArea,
+      CF: site.ZFA.CommunityFacility / zoningLotArea,
+      C: site.ZFA.Commercial / zoningLotArea,
+      M: site.ZFA.Manufacturing / zoningLotArea,
+      T: site.ZFA.Total / zoningLotArea
+    };
+    const allowed = {
+      R: zone.ResidentialFAR,
+      CF: zone.CommunityFacilityFAR,
+      C: zone.CommercialFAR,
+      M: zone.ManufacturingFAR,
+      T: Math.max(zone.ResidentialFAR, zone.CommunityFacilityFAR, zone.CommercialFAR, zone.ManufacturingFAR),
+    };
+  
     return (
         <div className='w-full'>
             { site && 
-                <table className='w-full table-fixed'>
-                    <thead>
-                        <tr className='text-left'>
-                            <th className='w-1/6'>R</th>
-                            <th className='w-1/6'>CF</th>
-                            <th className='w-1/6'>C</th>
-                            <th className='w-1/6'>M</th>
-                            <th className='w-1/6 text-gray-400'>Parking</th>
-                            {/* <th className='text-gray-400'>Loading</th> */}
-                            <th className='w-1/6'>Total</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr className='text-left'>
-                            <th>{formatNum(site.GFA.Residential)}</th>
-                            <th>{formatNum(site.GFA.CommunityFacility)}</th>
-                            <th>{formatNum(site.GFA.Commercial)}</th>
-                            <th>{formatNum(site.GFA.Manufacturing)}</th>
-                            <th className='text-gray-400'>{formatNum(site.GFA.ParkingProvided)}</th>
-                            {/* <th className='text-gray-400'>{formatNum(site.GFA.LoadingProvided)}</th> */}
-                            <th>{formatNum(site.GFA.Total)}</th>
-                        </tr>
-                    </tbody>
-                </table>
+                <div className='w-full flex justify-between'>
+                    <div className='flex flex-col justify-center items-center'>
+                        <h3>R</h3>
+                        <small>{formatNum(site.GFA.Residential)}</small>
+                        <small>{formatNum(site.ZFA.Residential)}</small>
+                        <VisualFAR data={[utilized.R, allowed.R]} color={color.luYellow}/>
+                    </div>
+                    <div className='flex flex-col justify-center items-center'>
+                        <h3>CF</h3>
+                        <small>{formatNum(site.GFA.CommunityFacility)}</small>
+                        <small>{formatNum(site.ZFA.CommunityFacility)}</small>
+                        <VisualFAR data={[utilized.CF, allowed.CF]} color={color.luBlue}/>
+                    </div>
+                    <div className='flex flex-col justify-center items-center'>
+                        <h3>C</h3>
+                        <small>{formatNum(site.GFA.Commercial)}</small>
+                        <small>{formatNum(site.ZFA.Commercial)}</small>
+                        <VisualFAR data={[utilized.C, allowed.C]} color={color.luRed}/>
+                    </div>
+                    <div className='flex flex-col justify-center items-center'>
+                        <h3>M</h3>
+                        <small>{formatNum(site.GFA.Manufacturing)}</small>
+                        <small>{formatNum(site.ZFA.Manufacturing)}</small>
+                        <VisualFAR data={[utilized.M, allowed.M]} color={color.luPurple}/>
+                    </div>
+                    <div className='flex flex-col justify-center items-center'>
+                        <h3>Total</h3>
+                        <small>{formatNum(site.GFA.Total)} (GFA)</small>
+                        <small>{formatNum(site.ZFA.Total)} (ZFA)</small>
+                        <VisualFAR data={[utilized.T, allowed.T]} color={'black'}/>
+                    </div>
+                </div>
             }
-            <small>*Areas shown are Gross Floor Area (GFA)</small>
         </div>
     )
 }
