@@ -1,15 +1,16 @@
-import React, { Component } from 'react'
-import CurrentSiteScenario from './components/CurrentSiteScenario'
-import SiteTable from './components/SiteTable'
-import SiteDetails from './components/SiteDetails'
-import Status from './components/Status'
-import MapPanel from './components/MapPanel'
-import SitesList from './components/SitesList'
-import ScenariosList from './components/ScenariosList'
-import ZonesList from './components/ZonesList'
-import DocumentationPage from './components/DocumentationPage'
-import SectionHeading from './components/SectionHeading'
-import FAR from './components/FAR'
+import React, { Component } from 'react';
+import CurrentSiteScenario from './components/CurrentSiteScenario';
+import SiteTable from './components/SiteTable';
+import SiteDetails from './components/SiteDetails';
+import Status from './components/Status';
+import MapPanel from './components/MapPanel';
+import SitesList from './components/SitesList';
+import ScenariosList from './components/ScenariosList';
+import ZonesList from './components/ZonesList';
+import DocumentationPage from './components/DocumentationPage';
+import SectionHeading from './components/SectionHeading';
+import FAR from './components/FAR';
+import VisualFARChart from './components/VisualFARChart';
 
 import Layout from './layouts/default'
 
@@ -69,6 +70,11 @@ class App extends Component {
   }
 
   componentDidMount() {
+    const cachedState = localStorage.getItem('plugin');
+    if (cachedState) {
+      this.setState({'plugin': JSON.parse(cachedState)});
+    }
+
     this.ws.onopen = () => {
       //this.addMessage("Connected...")
       console.log("WS connected")
@@ -83,8 +89,10 @@ class App extends Component {
       // then do different things to handle input message
 
       // receive plugin state updates
+      // and persist to local storage in case of reload
       if (message.action === "updatePluginState") {
         this.setState({'plugin': message.body});
+        localStorage.setItem('plugin', JSON.stringify(message.body));
       }
 
       // if (message.action === "updateSiteScenarioList") {
@@ -165,18 +173,18 @@ class App extends Component {
             current={this.state.plugin.ScenarioCurrent}
             setScenario={this.setScenario}
           />
-          {/* <ZonesList sites={this.state.sites}/> */}
+          <br/>
+          { this.state.plugin.SiteCurrent && this.state.plugin.ScenarioCurrent && 
+            <SiteTable pluginState={this.state.plugin} />
+          }
+          <br/>
           { this.state.plugin.SiteCurrent && this.state.plugin.ScenarioCurrent && 
             <SiteDetails 
               site={this.state.plugin.SiteCurrent} 
               scenarioCurrent={this.state.plugin.ScenarioCurrent.Name}
             />
           }
-          { this.state.plugin.SiteCurrent && this.state.plugin.ScenarioCurrent && 
-            <FAR pluginState={this.state.plugin} />
-          }
-          <br/>
-          <SiteTable site={this.state.plugin.SiteCurrent} />
+          {/* <ZonesList sites={this.state.sites}/> */}
         </div>
 
         <div className='mt-8'>
