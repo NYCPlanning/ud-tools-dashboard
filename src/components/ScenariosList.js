@@ -2,7 +2,7 @@ import React from 'react'
 
 export default function ScenariosList({ scenarios, setScenario, current }) {
   return (
-    <div className='flex'>
+    <div className='flex flex-wrap'>
       <h3 className='m-2 ml-0'>Scenario:</h3>
       {scenarios &&
         scenarios.map((scenario) =>
