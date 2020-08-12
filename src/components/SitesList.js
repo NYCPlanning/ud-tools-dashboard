@@ -2,7 +2,7 @@ import React from 'react'
 
 export default function SitesList({ sites, setSite, current }) {
   return (
-    <div className='flex'>
+    <div className='flex flex-wrap'>
       <h3 className='m-2 ml-0'>Site:</h3>
       {sites &&
           sites.map((site, i) =>

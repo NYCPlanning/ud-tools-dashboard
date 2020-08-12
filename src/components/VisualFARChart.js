@@ -23,11 +23,11 @@ export default function VisualFARChart({ pluginState }) {
 
   return (
     <div className='label flex justify-between'>
-      <VisualFAR data={[utilized.R, allowed.R]} color={color.luYellow}/>
-      <VisualFAR data={[utilized.CF, allowed.CF]} color={color.luBlue}/>
-      <VisualFAR data={[utilized.C, allowed.C]} color={color.luRed}/>
-      <VisualFAR data={[utilized.M, allowed.M]} color={color.luPurple}/>
-      <VisualFAR data={[utilized.T, allowed.T]} color={'black'}/>
+      <VisualFAR data={[utilized.R/allowed.R, 1]} color={color.luYellow}/>
+      <VisualFAR data={[utilized.CF/allowed.CF, 1]} color={color.luBlue}/>
+      <VisualFAR data={[utilized.C/allowed.C, 1]} color={color.luRed}/>
+      <VisualFAR data={[utilized.M/allowed.M, 1]} color={color.luPurple}/>
+      <VisualFAR data={[utilized.T/allowed.T, 1]} color={'black'}/>
     </div>
   )
 };

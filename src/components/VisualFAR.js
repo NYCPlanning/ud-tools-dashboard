@@ -11,7 +11,7 @@ export default function VisualFAR({ data, color }) {
       .selectAll('circle')
       .data(data)
       .join('circle')
-      .attr('r', value => value)
+      .attr('r', value => value * 10)
       .attr('fill', (d, i) => i > 0 ? 'none' : color)
       .attr('stroke', (d, i) => i > 0 ? '#e0e0e0' : 'none')
       .attr('stroke-width', (d, i) => i > 0 ? '1' : 'none');
@@ -24,10 +24,6 @@ export default function VisualFAR({ data, color }) {
           ? <svg viewBox='-14 -14 28 28' className='w-12 h-12' ref={svgRef} />
           : <div className='w-12 h-12 text-gray-500 flex justify-center items-center'>X</div>
         }
-        
-        <span className={data[0] > data[1] ? 'text-red-500 font-bold' : ''}>
-          <small>{formatFAR(data[0])} of {formatFAR(data[1])}</small>
-        </span>        
       </div>
     </React.Fragment>
   )
