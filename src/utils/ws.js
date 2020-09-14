@@ -1,14 +1,12 @@
-// url for the websockets service
-
 export class WsProvider {
   constructor(app, url) {
     this.url = url;
     this.socket = new WebSocket(url);
     this.app = app;
-    this.initialize()
+    this.initialize();
   }
 
-  initialize = () => {
+  initialize = (socket) => {
     this.socket.onopen = () => {
       this.setConnected(true);
     }
@@ -24,8 +22,7 @@ export class WsProvider {
     }
 
     this.socket.onclose = () => {
-      this.setConnected(false);
-      this.socket = new WebSocket(this.url);
+      this.tryReconnect();
     }
   
     this.socket.onerror = () => {
@@ -49,7 +46,17 @@ export class WsProvider {
 
   setSite = id => 
     this.submitMessage('setSite', id)
+
+  tryReconnect = () => {
+    this.setConnected(false);
+    let newConnection = new WebSocket(this.url)
+    // wait for connection, then if successful set back to true
+    newConnection.onopen = () => {
+      if (newConnection.readyState == 1) {
+        this.setConnected(true);
+        this.socket = newConnection;
+        this.initialize();
+      }
+    };
+  }
 }
-
-
-

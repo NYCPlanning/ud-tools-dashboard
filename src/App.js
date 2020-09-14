@@ -60,6 +60,7 @@ class App extends Component {
         connected={this.state.connected}
         version={this.state.plugin.Version}
         buildDate={this.state.plugin.BuildDate}
+        tryReconnect={this.ws.tryReconnect}
       >
         <div id='mode-container' className='w-full flex flex-col'>
           <MapPanel
