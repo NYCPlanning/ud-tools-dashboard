@@ -7,7 +7,6 @@ class MassingGoals extends React.Component {
       floorHts: [],
       useGroups: [],
     }
-    this.ws = props.ws;
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
@@ -19,12 +18,14 @@ class MassingGoals extends React.Component {
   }
 
   handleSubmit(e) {
-    console.log('submitted')
+    e.preventDefault();
+    this.props.ws.submitMessage('setMassingGoals', this.state);
   }
 
   render() {
     return (
       <div className='flex flex-col'>
+        <h2>Massing Goals</h2>
         <form onSubmit={this.handleSubmit}>
           <label>
             Floor Heights: 
