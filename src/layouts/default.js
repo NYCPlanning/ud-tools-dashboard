@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import BuildDetails from '../components/BuildDetails';
 import Nav from '../components/Nav';
 import '../style/main.css';
 
@@ -16,6 +17,9 @@ const Layout = ({ children, connected, version, buildDate, tryReconnect }) => {
                     />
                 </div>
                 {children}
+                <div>
+                <BuildDetails version={version} buildDate={buildDate} />
+                </div>
             </div>
         </div>
     )

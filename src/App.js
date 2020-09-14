@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import SiteTable from './components/SiteTable';
-import SiteDetails from './components/SiteDetails';
 import MapPanel from './components/MapPanel';
-import SitesList from './components/SitesList';
-import ScenariosList from './components/ScenariosList';
 import MassingGoals from './components/MassingGoals';
+import ScenariosList from './components/ScenariosList';
+import SiteDetails from './components/SiteDetails';
+import SitesList from './components/SitesList';
+import SiteTable from './components/SiteTable';
 import Layout from './layouts/default';
 import { WsProvider } from './utils/ws';
 

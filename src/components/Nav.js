@@ -9,9 +9,12 @@ export default function Nav({connected, mode, tryReconnect}) {
   }
 
   return (
-    <div className='flex flex-col'>
+    <div className='flex flex-col mb-4'>
       <div className="flex justify-between">
-        <a target="_blank" href={`https://nycplanning.github.io/ud-digital-practice/plugin/quickstart`}>Guide ↗</a>
+        <a target="_blank" 
+          href={process.env.REACT_APP_DOCS_URL}>
+          Guide ↗
+        </a>
         <Status connected={connected} tryReconnect={tryReconnect}/>
       </div>
       <div className="flex justify-between">
