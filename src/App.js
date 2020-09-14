@@ -77,7 +77,7 @@ class App extends Component {
             current={this.state.plugin.ScenarioCurrent}
             setScenario={this.ws.setScenario}
           />
-          <MassingGoals />
+          <MassingGoals ws={this.ws}/>
 
           { this.state.plugin.SiteCurrent && this.state.plugin.ScenarioCurrent && 
             <SiteTable pluginState={this.state.plugin} />
