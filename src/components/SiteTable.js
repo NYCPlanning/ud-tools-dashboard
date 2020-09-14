@@ -6,7 +6,7 @@ import VisualFAR from './VisualFAR';
 export default function SiteTable({ pluginState }) {
     const zone = pluginState.SiteCurrent.Scenarios[pluginState.ScenarioCurrent.Name];
     const site = pluginState.SiteCurrent;
-    const zoningLotArea = site.ZoningLotArea;
+    const zoningLotArea = site.ZoningLot.Area;
     const utilized = {
       R: site.ZFA.Residential / zoningLotArea,
       CF: site.ZFA.CommunityFacility / zoningLotArea,

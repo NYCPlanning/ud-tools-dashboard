@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 const formatNum = (n) => { return n.toLocaleString(undefined, {maximumFractionDigits:0}); };
 
 export default function SiteDetails({ site, scenarioCurrent }) {
-    const lots = site.Lots.join(', ')
+    const lots = site.LotIDs.join(', ')
 
     const zoningParams = site.Scenarios[scenarioCurrent]
     const zoningRows = Object.entries(zoningParams).map(([k, v], i) => (
