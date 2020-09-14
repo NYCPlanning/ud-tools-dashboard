@@ -33,9 +33,11 @@ export class WsProvider {
   send = json => 
     this.socket.send(json)
 
-  submitMessage = (action, messageString) => {
-    const message = { action: action, body: messageString }
-    this.send(JSON.stringify(message))
+  submitMessage = (action, body) => {
+    const bodyString = JSON.stringify(body);
+    const message = { action: action, body: bodyString };
+    const messageString = JSON.stringify(message);
+    this.send(messageString)
   }
 
   setConnected = c => 
@@ -46,6 +48,9 @@ export class WsProvider {
 
   setSite = id => 
     this.submitMessage('setSite', id)
+
+  setMassingGoals = goals => 
+    this.submitMessage('setMassingGoals', goals)
 
   tryReconnect = () => {
     this.setConnected(false);
