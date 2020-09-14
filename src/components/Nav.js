@@ -1,7 +1,7 @@
 import React from 'react'
 import Status from './Status'
 
-export default function Nav({connected, version, buildDate}) {
+export default function Nav({connected, mode, tryReconnect}) {
   const todaysDate = () => {
     const now = new Date();
     const date = now.toDateString();
@@ -9,20 +9,19 @@ export default function Nav({connected, version, buildDate}) {
   }
 
   return (
-    <div className="col-span-1">
-      <h1 className="w-limit mb-4">UDTools Dashboard</h1>
-      <div className="flex flex-col items-start">
-        <Status connected={connected} />
-        <div className='cursor-pointer font-bold text-blue-700 underline'>
-          <a href={`mailto:crodin@planning.nyc.gov?subject=UDTools Issue Report, ${todaysDate()} &body=Version: ${version}, Build Date: ${buildDate}%0D%0A%0D%0A[thanks for reporting an issue with UDTools! please replace this text with a detailed description of your issue, include screenshots if possible]`}>Report a Problem</a>
-        </div>
-        <div className='text-gray-500'>{version}, {buildDate}</div>
+    <div className='flex flex-col'>
+      <div className="flex justify-between">
+        <a target="_blank" href={`https://nycplanning.github.io/ud-digital-practice/plugin/quickstart`}>Guide ↗</a>
+        <Status connected={connected} tryReconnect={tryReconnect}/>
       </div>
-      <style>{`
-        .w-limit {
-          max-width: 12rem;
-        }
-      `}</style>
+      <div className="flex justify-between">
+        <span>←</span>
+        <span>Map</span>
+        <span>Site Selector</span>
+        <span>Generate Massings</span>
+        <span>Details</span>
+        <span>→</span>
+      </div>
     </div>
   )
 }
