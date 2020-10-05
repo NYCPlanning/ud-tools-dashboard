@@ -40,8 +40,10 @@ export class WsProvider {
     this.send(messageString)
   }
 
-  setConnected = c => 
+  setConnected = c => {
+    this.submitMessage('dashboardConnected');
     this.app.setState(state => ({ connected: c}))
+  }
 
   setScenario = id => 
     this.submitMessage('setScenario', id)
