@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
+import { Switch, Route } from 'react-router-dom';
 import MapPanel from './components/MapPanel';
-import MassingGoals from './components/MassingGoals';
+import GraphicMassingGoals from './components/GraphicMassingGoals';
+import GraphicSiteScenario from './components/GraphicSiteScenario';
 import ScenariosList from './components/ScenariosList';
 import SiteDetails from './components/SiteDetails';
 import SitesList from './components/SitesList';
@@ -62,33 +64,48 @@ class App extends Component {
         buildDate={this.state.plugin.BuildDate}
         tryReconnect={this.ws.tryReconnect}
       >
-        <div id='mode-container' className='w-full flex flex-col'>
-          <MapPanel
-            ws={this.ws} 
-            onSubmitMessage={messageString => this.ws.submitMessage('setSiteBounds', messageString)} 
-          />
-          <SitesList 
-            sites={this.state.plugin.Sites} 
-            current={this.state.plugin.SiteCurrent}
-            setSite={this.ws.setSite}
-          />
-          <ScenariosList 
-            scenarios={this.state.plugin.Scenarios} 
-            current={this.state.plugin.ScenarioCurrent}
-            setScenario={this.ws.setScenario}
-          />
-          <MassingGoals ws={this.ws}/>
+          <div id='mode-container' className='w-full flex flex-col'>
 
-          { this.state.plugin.SiteCurrent && this.state.plugin.ScenarioCurrent && 
-            <SiteTable pluginState={this.state.plugin} />
-          }
-          { this.state.plugin.SiteCurrent && this.state.plugin.ScenarioCurrent && 
-            <SiteDetails 
-              site={this.state.plugin.SiteCurrent} 
-              scenarioCurrent={this.state.plugin.ScenarioCurrent.Name}
-            />
-          }
-        </div>
+          <Switch>
+            <Route exact path="/">
+
+                { this.state.plugin.SiteCurrent && this.state.plugin.ScenarioCurrent && 
+                  <SiteTable pluginState={this.state.plugin} />
+                }
+                { this.state.plugin.SiteCurrent && this.state.plugin.ScenarioCurrent && 
+                  <SiteDetails 
+                    site={this.state.plugin.SiteCurrent} 
+                    scenarioCurrent={this.state.plugin.ScenarioCurrent.Name}
+                  />
+                }
+              </Route>
+              <Route exact path="/context">
+                <MapPanel
+                  ws={this.ws} 
+                  onSubmitMessage={messageString => this.ws.submitMessage('setSiteBounds', messageString)} 
+                />
+              </Route>
+              <Route exact path="/setup">
+                <SitesList 
+                  sites={this.state.plugin.Sites} 
+                  current={this.state.plugin.SiteCurrent}
+                  setSite={this.ws.setSite}
+                />
+                <ScenariosList 
+                  scenarios={this.state.plugin.Scenarios} 
+                  current={this.state.plugin.ScenarioCurrent}
+                  setScenario={this.ws.setScenario}
+                />
+              </Route>
+              <Route exact path='/build'>
+                <GraphicSiteScenario />
+                <GraphicMassingGoals ws={this.ws}/>
+              </Route>
+          </Switch>
+          </div>
+          <br/>
+          <br/>
+          <br/>
       </Layout>
     )
   }
