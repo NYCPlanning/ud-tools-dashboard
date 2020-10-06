@@ -3,38 +3,49 @@ import { Switch, Route } from 'react-router-dom';
 import MapPanel from './components/MapPanel';
 import GraphicMassingGoals from './components/GraphicMassingGoals';
 import GraphicSiteScenario from './components/GraphicSiteScenario';
+import { Dropdown, ToggleList } from './components/Generic';
 import ScenariosList from './components/ScenariosList';
 import SiteDetails from './components/SiteDetails';
 import SitesList from './components/SitesList';
 import SiteTable from './components/SiteTable';
 import Layout from './layouts/default';
 import { WsProvider } from './utils/ws';
+// import { ScenarioDropdown } from './components/SiteScenarioDropdown';
 
 class App extends Component {
+  stateTemplate = {
+    connected: false,
+    plugin: {
+      Scenarios: [],
+      Sites: [],
+    },
+    scenarios: [],
+    sites: [],
+    currentScenario: 0,
+    currentSite: 0,
+    result: {
+      GFA: {
+        Residential: 0,
+        CommunityFacility: 0,
+        Commercial: 0,
+        Manufacturing: 0,
+        ParkingProvided: 0,
+        LoadingProvided: 0,
+        Total: 0
+      }
+    },
+    message: {}
+  };
+
   constructor(props){
     super();
-    this.state = {
-      connected: false,
-      plugin: {},
-      scenarios: [],
-      sites: [],
-      currentScenario: 0,
-      currentSite: 0,
-      result: {
-        GFA: {
-          Residential: 0,
-          CommunityFacility: 0,
-          Commercial: 0,
-          Manufacturing: 0,
-          ParkingProvided: 0,
-          LoadingProvided: 0,
-          Total: 0
-        }
-      },
-      message: {}
-    };
+    this.state = this.stateTemplate;
     this.ws = {}
   };
+
+  resetState() {
+    this.setState = this.stateTemplate;
+  }
 
   componentWillUpdate(prevProps, prevState) {
     const newSites = prevState.sites != this.state.sites && this.state.sites.length > 0
@@ -57,6 +68,18 @@ class App extends Component {
 
   render() {
     const modes = [];
+    const scenarios = this.state.plugin.Scenarios;
+    const scenarioCurrent = this.state.plugin.ScenarioCurrent;
+    const setScenario = this.ws.setScenario;
+    const sites = this.state.plugin.Sites;
+    const siteCurrent = this.state.plugin.SiteCurrent;
+    const setSite = this.ws.setSite;
+
+    const grid = scenarios.map((scenario, i) => (
+      sites.map((site) => (site.ID))
+    ));
+    const location = [0,0]
+
     return (
       <Layout 
         connected={this.state.connected}
@@ -68,16 +91,6 @@ class App extends Component {
 
           <Switch>
             <Route exact path="/">
-
-                { this.state.plugin.SiteCurrent && this.state.plugin.ScenarioCurrent && 
-                  <SiteTable pluginState={this.state.plugin} />
-                }
-                { this.state.plugin.SiteCurrent && this.state.plugin.ScenarioCurrent && 
-                  <SiteDetails 
-                    site={this.state.plugin.SiteCurrent} 
-                    scenarioCurrent={this.state.plugin.ScenarioCurrent.Name}
-                  />
-                }
               </Route>
               <Route exact path="/context">
                 <MapPanel
@@ -86,20 +99,51 @@ class App extends Component {
                 />
               </Route>
               <Route exact path="/setup">
-                <SitesList 
-                  sites={this.state.plugin.Sites} 
-                  current={this.state.plugin.SiteCurrent}
-                  setSite={this.ws.setSite}
+                <ToggleList 
+                  label='Scenarios'
+                  list={scenarios}
+                  current={scenarioCurrent}
+                  set={setScenario}
                 />
-                <ScenariosList 
-                  scenarios={this.state.plugin.Scenarios} 
-                  current={this.state.plugin.ScenarioCurrent}
-                  setScenario={this.ws.setScenario}
+                <ToggleList 
+                  label='Sites'
+                  list={sites}
+                  current={siteCurrent}
+                  set={setSite}
+                />
+                <SiteDetails 
+                  site={sites[siteCurrent]} 
+                  scenario={scenarios[scenarioCurrent]}
                 />
               </Route>
               <Route exact path='/build'>
-                <GraphicSiteScenario />
+                <GraphicSiteScenario
+                  scenarios={scenarios}
+                  scenarioCurrent={scenarioCurrent} 
+                  sites={sites}
+                  siteCurrent={siteCurrent}
+                />
                 <GraphicMassingGoals ws={this.ws}/>
+                { this.state.plugin.SiteCurrent && this.state.plugin.ScenarioCurrent && 
+                  <SiteDetails 
+                    site={this.state.plugin.SiteCurrent} 
+                    scenarioCurrent={this.state.plugin.ScenarioCurrent.Name}
+                  />
+                }
+              </Route>
+              {/* <Route exact path='/measure'>
+                <div className='flex flex-wrap justify-between mb-4'>
+                  <Dropdown label='Site' list={sites} current={siteCurrent} set={setSite}/>
+                  <Dropdown label='Scenario' list={scenarios} current={scenarioCurrent} set={setScenario}/>
+                </div>
+
+              { this.state.plugin.SiteCurrent && this.state.plugin.ScenarioCurrent && 
+                  <SiteTable pluginState={this.state.plugin} />
+                }
+              </Route> */}
+              <Route exact path='/summarize'>
+                <Dropdown label='Site' list={sites} current={siteCurrent} set={setSite}/>
+                <Dropdown label='Scenario' list={scenarios} current={scenarioCurrent} set={setScenario}/>
               </Route>
           </Switch>
           </div>
