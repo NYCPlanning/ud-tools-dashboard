@@ -6,7 +6,7 @@ export default function Status({connected, tryReconnect}) {
   else statusMessage = <button onClick={tryReconnect}>Disconnected ↺</button>
 
   return (
-    <div className={connected ? 'mb-4 text-green-600' : 'mb-4 text-red-600'}>
+    <div className={connected ? 'mb-6 text-green-400 green-glow' : 'mb-4 text-red-600'}>
       {statusMessage}
     </div>
   )

@@ -6,6 +6,7 @@ export default function VisualFAR({ data, color }) {
   const svgRef = useRef();
 
   useEffect(() => {
+    if (!data[0]) return;
     const svg = select(svgRef.current);
     svg
       .selectAll('circle')
@@ -20,10 +21,7 @@ export default function VisualFAR({ data, color }) {
   return (
     <React.Fragment>
       <div className='flex flex-col justify-center items-center'>
-        {(data[1] != 0)
-          ? <svg viewBox='-14 -14 28 28' className='w-12 h-12' ref={svgRef} />
-          : <div className='w-12 h-12 text-gray-500 flex justify-center items-center'>X</div>
-        }
+        <svg viewBox='-14 -14 28 28' className='w-12 h-12' ref={svgRef} />
       </div>
     </React.Fragment>
   )

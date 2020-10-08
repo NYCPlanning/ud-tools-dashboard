@@ -27,21 +27,25 @@ class MassingGoals extends React.Component {
       <div className='flex flex-col'>
         <h2>Massing Goals</h2>
         <form onSubmit={this.handleSubmit}>
-          <label>
+          <label className='block'>
             Floor Heights: 
             <input type='text'
                    name='floorHts'
                    value={this.state.floorHts.join(',')}
-                   onChange={this.handleChange} />
+                   onChange={this.handleChange} 
+                   className={'border border-black'}
+            />
           </label>
-          <label>
+          <label className='block'>
             Floor Use Groups: 
             <input type='text'
                    name='useGroups' 
                    value={this.state.useGroups.join(',')}
-                   onChange={this.handleChange} />
+                   onChange={this.handleChange} 
+                   className={'border border-black'}
+            />
           </label>
-          <input type='submit' value='Submit' />
+          <input type='submit' value='Set Massing Goals' />
         </form>
       </div>
     )

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Router, Link } from 'react-router-dom';
+import { Router, Link, NavLink } from 'react-router-dom';
 import Status from './Status';
 
 export default function Nav({connected, mode, tryReconnect}) {
@@ -12,24 +12,17 @@ export default function Nav({connected, mode, tryReconnect}) {
   return (
       <div className='flex flex-col mb-4'>
         <div className="flex justify-between">
-          <a target="_blank" 
-            href={process.env.REACT_APP_DOCS_URL}>
+          <a target="_blank" href={process.env.REACT_APP_DOCS_URL}>
             Guide ↗
           </a>
           <Status connected={connected} tryReconnect={tryReconnect}/>
         </div>
         <div className="flex justify-between">
-          {/* <span>←</span> */}
-          <Link to="/context">Context</Link>
-          <Link to="/setup">Setup</Link>
-          <Link to="/build">Build</Link>
-          <Link to="/map">Measure</Link>
-          <Link to="/map">Export</Link>
-          {/* <Link to="/map">Map</Link> */}
-          {/* <span>Site Selector</span>
-          <span>Generate Massings</span>
-          <span>Details</span>
-          <span>→</span> */}
+          <NavLink to="/context" activeClassName="nav-active">Context</NavLink>
+          <NavLink to="/setup" activeClassName="nav-active">Setup</NavLink>
+          <NavLink to="/build" activeClassName="nav-active">Build</NavLink>
+          <NavLink to="/measure" activeClassName="nav-active">Measure</NavLink>
+          <NavLink to="/summarize" activeClassName="nav-active">Summary</NavLink>
         </div>
       </div>
   )

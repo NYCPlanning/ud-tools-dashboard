@@ -1,11 +1,11 @@
-import React, { Component } from 'react';
+import React from 'react';
 
 const formatNum = (n) => { return n.toLocaleString(undefined, {maximumFractionDigits:0}); };
 
-export default function SiteDetails({ site, scenarioCurrent }) {
+export default function SiteDetails({ site, scenario }) {
+    if (!site || !scenario) return <div>Loading...</div>
     const lots = site.LotIDs.join(', ')
-
-    const zoningParams = site.Scenarios[scenarioCurrent]
+    const zoningParams = site.Scenarios[scenario.ID]
     const zoningRows = Object.entries(zoningParams).map(([k, v], i) => (
         <tr key={i}>
             <td className='text-left'>{k}</td>
