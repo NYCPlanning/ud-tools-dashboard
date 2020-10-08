@@ -22,10 +22,12 @@ export class WsProvider {
     }
 
     this.socket.onclose = () => {
+      this.app.resetState();
       this.tryReconnect();
     }
   
     this.socket.onerror = () => {
+      this.app.resetState();
       this.setConnected(false);
     }
   }
