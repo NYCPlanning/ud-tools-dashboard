@@ -17,6 +17,15 @@ html, body {
     background: linear-gradient(rgba(40, 123, 217, 1), rgba(255, 255, 255, 0));
 }
 
+.green-glow {
+    text-shadow: 0 0 0.125em lime;
+}
+
+.nav-active {
+    background: blue;
+    color: white;
+}
+
 h1, h2, h3 {
     font-weight: bold;
     margin-bottom: 1em;
