@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Switch, Route } from 'react-router-dom';
 import MapPanel from './components/MapPanel';
 import GraphicMassingGoals from './components/GraphicMassingGoals';
+import MassingGoals from './components/MassingGoals';
 import GraphicSiteScenario from './components/GraphicSiteScenario';
 import { Dropdown, ToggleList } from './components/Generic';
 import ScenariosList from './components/ScenariosList';
@@ -19,22 +20,6 @@ class App extends Component {
       Scenarios: [],
       Sites: [],
     },
-    scenarios: [],
-    sites: [],
-    currentScenario: 0,
-    currentSite: 0,
-    result: {
-      GFA: {
-        Residential: 0,
-        CommunityFacility: 0,
-        Commercial: 0,
-        Manufacturing: 0,
-        ParkingProvided: 0,
-        LoadingProvided: 0,
-        Total: 0
-      }
-    },
-    message: {}
   };
 
   constructor(props){
@@ -44,7 +29,7 @@ class App extends Component {
   };
 
   resetState() {
-    this.setState = this.stateTemplate;
+    this.setState(state => (this.stateTemplate))
   }
 
   componentWillUpdate(prevProps, prevState) {
@@ -117,30 +102,38 @@ class App extends Component {
                 />
               </Route>
               <Route exact path='/build'>
-                <GraphicSiteScenario
+                <ToggleList 
+                  label='Scenarios'
+                  list={scenarios}
+                  current={scenarioCurrent}
+                  set={setScenario}
+                />
+                <ToggleList 
+                  label='Sites'
+                  list={sites}
+                  current={siteCurrent}
+                  set={setSite}
+                />
+                <MassingGoals ws={this.ws} />
+                {/* <GraphicSiteScenario
                   scenarios={scenarios}
                   scenarioCurrent={scenarioCurrent} 
                   sites={sites}
                   siteCurrent={siteCurrent}
-                />
-                <GraphicMassingGoals ws={this.ws}/>
+                /> */}
+                {/* <GraphicMassingGoals ws={this.ws}/>
                 { this.state.plugin.SiteCurrent && this.state.plugin.ScenarioCurrent && 
                   <SiteDetails 
                     site={this.state.plugin.SiteCurrent} 
                     scenarioCurrent={this.state.plugin.ScenarioCurrent.Name}
                   />
-                }
+                } */}
               </Route>
-              {/* <Route exact path='/measure'>
-                <div className='flex flex-wrap justify-between mb-4'>
-                  <Dropdown label='Site' list={sites} current={siteCurrent} set={setSite}/>
-                  <Dropdown label='Scenario' list={scenarios} current={scenarioCurrent} set={setScenario}/>
-                </div>
-
-              { this.state.plugin.SiteCurrent && this.state.plugin.ScenarioCurrent && 
-                  <SiteTable pluginState={this.state.plugin} />
-                }
-              </Route> */}
+              <Route exact path='/measure'>
+                <Dropdown label='Site' list={sites} current={siteCurrent} set={setSite}/>
+                <Dropdown label='Scenario' list={scenarios} current={scenarioCurrent} set={setScenario}/>
+                <SiteTable pluginState={this.state.plugin} />
+              </Route>
               <Route exact path='/summarize'>
                 <Dropdown label='Site' list={sites} current={siteCurrent} set={setSite}/>
                 <Dropdown label='Scenario' list={scenarios} current={scenarioCurrent} set={setScenario}/>
