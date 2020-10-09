@@ -28,10 +28,10 @@ class App extends Component {
   }
 
   componentWillUpdate(prevProps, prevState) {
-    const newSites = prevState.sites != this.state.sites && this.state.sites.length > 0
-    const newScenarios = prevState.scenarios != this.state.scenarios && this.state.scenarios.length > 0
-    const siteChanged = prevState.currentSite != this.state.currentSite
-    const scenarioChanged = prevState.currentScenario != this.state.currentScenario
+    const newSites = prevState.sites !== this.state.sites && this.state.sites.length > 0
+    const newScenarios = prevState.scenarios !== this.state.scenarios && this.state.scenarios.length > 0
+    const siteChanged = prevState.currentSite !== this.state.currentSite
+    const scenarioChanged = prevState.currentScenario !== this.state.currentScenario
 
     if (siteChanged || scenarioChanged || newSites || newScenarios ) {
       const messageBody = {
@@ -47,7 +47,6 @@ class App extends Component {
   }
 
   render() {
-    const modes = [];
     const { 
       Sites: sites, 
       SiteCurrent: siteCurrent,

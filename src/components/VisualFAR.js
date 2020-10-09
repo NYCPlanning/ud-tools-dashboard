@@ -1,6 +1,5 @@
-import React, { useRef, useEffect, useState } from 'react';
+import React, { useRef, useEffect } from 'react';
 import { select } from 'd3';
-import { formatFAR } from '../utils/format';
 
 export default function VisualFAR({ data, color }) {
   const svgRef = useRef();
@@ -16,7 +15,7 @@ export default function VisualFAR({ data, color }) {
       .attr('fill', (d, i) => i > 0 ? 'none' : color)
       .attr('stroke', (d, i) => i > 0 ? '#e0e0e0' : 'none')
       .attr('stroke-width', (d, i) => i > 0 ? '1' : 'none');
-    }, [data]);
+    }, [data, color]);
 
   return (
     <React.Fragment>

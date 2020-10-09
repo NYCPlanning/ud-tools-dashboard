@@ -1,8 +1,7 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react';
 
 export function Dropdown({ label, list, current, set }) {
-  const initialValue = (list[current] && list[current].ID) || null
-  const [value, setValue] = React.useState();
+  const [value] = React.useState();
 
   return (
     <div>
@@ -17,7 +16,7 @@ export function Dropdown({ label, list, current, set }) {
 }
 
 export function ToggleList({ label, list, current, set }) {
-  if (!list || list.length == 0) return <div>No {label} loaded.</div>
+  if (!list || list.length === 0) return <div>No {label} loaded.</div>
   const itemCurrent = list[current]
   return (
     <div className='flex flex-wrap mb-4'>

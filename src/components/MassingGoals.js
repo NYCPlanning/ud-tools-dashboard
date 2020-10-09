@@ -1,5 +1,5 @@
 import React from 'react';
-import { formatNum, formatFAR } from '../utils/format';
+import { formatFAR } from '../utils/format';
 
 class MassingGoals extends React.Component {
   constructor(props) {
@@ -45,7 +45,7 @@ class MassingGoals extends React.Component {
     const flHtJoined = heights.map((h) => `${h}'`).join(', ')
     const flHtString = ` with floor heights of ${flHtJoined}`
     const useJoined = uses.map(({Category, Group, Label}) => {
-      const checkLabel = Label == 'unknown' ? '' : Label
+      const checkLabel = Label === 'unknown' ? '' : Label
       return `${useCategories[Category]} (Group ${Group}${checkLabel})`
     }).join(', ')
     const useString = ` ${useJoined}`

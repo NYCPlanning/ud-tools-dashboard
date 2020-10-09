@@ -1,5 +1,4 @@
 import React from 'react';
-import { formatNum } from '../utils/format';
 
 export function Zoning({ site, scenario }) {
   if (!site || !scenario) return <div/>

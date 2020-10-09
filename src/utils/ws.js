@@ -61,7 +61,7 @@ export class WsProvider {
     let newConnection = new WebSocket(this.url)
     // wait for connection, then if successful set back to true
     newConnection.onopen = () => {
-      if (newConnection.readyState == 1) {
+      if (newConnection.readyState === 1) {
         this.setConnected(true);
         this.socket = newConnection;
         this.initialize();

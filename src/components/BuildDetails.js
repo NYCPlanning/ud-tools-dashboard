@@ -1,5 +1,4 @@
-import React from 'react'
-import Status from './Status'
+import React from 'react';
 
 export default function BuildDetails({connected, version, buildDate}) {
   const todaysDate = () => {
