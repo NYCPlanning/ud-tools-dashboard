@@ -4,9 +4,12 @@ import * as color from '../utils/color';
 import VisualFAR from './VisualFAR';
 
 export default function SiteTable({ pluginState }) {
-    const zone = pluginState.SiteCurrent.Scenarios[pluginState.ScenarioCurrent.Name];
-    const site = pluginState.SiteCurrent;
-    const zoningLotArea = site.ZoningLotArea;
+    if ( pluginState.Sites.length === 0 ) return <div/>
+    const site = pluginState.Sites[pluginState.SiteCurrent]
+    const currentScenario = pluginState.Scenarios[pluginState.ScenarioCurrent]
+    const zone = site.Scenarios[currentScenario.ID]
+    
+    const zoningLotArea = site.ZoningLot.Area;
     const utilized = {
       R: site.ZFA.Residential / zoningLotArea,
       CF: site.ZFA.CommunityFacility / zoningLotArea,

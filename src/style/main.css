@@ -11,7 +11,19 @@
 
 html, body {
     font-family: Arial, Helvetica, sans-serif;
-    
+}
+
+.gradient {
+    background: linear-gradient(rgba(40, 123, 217, 1), rgba(255, 255, 255, 0));
+}
+
+.green-glow {
+    text-shadow: 0 0 0.125em lime;
+}
+
+.nav-active {
+    background: blue;
+    color: white;
 }
 
 h1, h2, h3 {
@@ -55,6 +67,11 @@ code {
     margin: 0 .2rem;
     font-family: monospace, monospace;
     letter-spacing: -0.03em;
+}
+
+a {
+    color: blue;
+    text-decoration: underline;
 }
 
 .square {

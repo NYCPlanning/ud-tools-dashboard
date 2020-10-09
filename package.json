@@ -7,12 +7,17 @@
     "@testing-library/react": "^9.5.0",
     "@testing-library/user-event": "^7.2.1",
     "d3": "^5.16.0",
+    "lodash-es": "^4.17.15",
+    "lodash-move": "^1.1.1",
     "ol": "^6.3.1",
     "proj4": "^2.6.2",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-markdown": "^4.3.1",
-    "react-scripts": "3.4.1"
+    "react-router-dom": "^5.2.0",
+    "react-scripts": "^3.4.3",
+    "react-spring": "^8.0.27",
+    "react-use-gesture": "^7.0.16"
   },
   "scripts": {
     "build:css": "postcss src/style/main.css -o src/main.css",
