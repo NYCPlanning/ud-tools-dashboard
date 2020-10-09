@@ -32,7 +32,7 @@ class MassingGoals extends React.Component {
     }
 
     const plugin = this.props.plugin;
-    if (plugin.Sites.length < 1) return <div>No sites loaded.</div>
+    if (plugin.Sites.length < 1) return <div/>
     const site = plugin.Sites[plugin.SiteCurrent];
     const scenario = plugin.Scenarios[plugin.ScenarioCurrent];
     const zone = site.Scenarios[scenario.ID]
@@ -52,17 +52,18 @@ class MassingGoals extends React.Component {
 
     const goalsString = `Site ${site.ID} has ${farAvailableString} available. Current goals are to provide ${useString}, with ${flHtString}.`
     return (
-      <div className='flex flex-col'>
-        <h2>Massing Goals</h2>
+      <div className='flex flex-col mb-4'>
+        <h3>Massing Goals</h3>
         {goalsString}
-        <form onSubmit={this.handleSubmit}>
+        <br/>
+        <form onSubmit={this.handleSubmit} className='mt-4'>
           <label className='block'>
             Floor Heights: 
             <input type='text'
                    name='floorHts'
                    value={this.state.floorHts.join(',')}
                    onChange={this.handleChange} 
-                   className={'border border-black'}
+                   className={'border border-black mb-2'}
             />
           </label>
           <label className='block'>
@@ -71,10 +72,10 @@ class MassingGoals extends React.Component {
                    name='useGroups' 
                    value={this.state.useGroups.join(',')}
                    onChange={this.handleChange} 
-                   className={'border border-black'}
+                   className={'border border-black mb-2'}
             />
           </label>
-          <input type='submit' value='Set Massing Goals' />
+          <input className='cursor-pointer' type='submit' value='Set Massing Goals' />
         </form>
       </div>
     )

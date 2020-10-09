@@ -1,17 +1,12 @@
 import React, { Component } from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
-import MapPanel from './components/MapPanel';
-import GraphicMassingGoals from './components/GraphicMassingGoals';
-import MassingGoals from './components/MassingGoals';
-import GraphicSiteScenario from './components/GraphicSiteScenario';
-import { Dropdown, ToggleList } from './components/Generic';
-import ScenariosList from './components/ScenariosList';
-import SiteDetails from './components/SiteDetails';
-import SitesList from './components/SitesList';
-import SiteTable from './components/SiteTable';
-import Layout from './layouts/default';
 import { WsProvider } from './utils/ws';
-// import { ScenarioDropdown } from './components/SiteScenarioDropdown';
+import Layout from './layouts/default';
+import { ToggleList } from './components/Generic';
+import MapPanel from './components/MapPanel';
+import MassingGoals from './components/MassingGoals';
+import { Zoning, Notes } from './components/SiteDetails';
+import SiteTable from './components/SiteTable';
 
 class App extends Component {
   stateTemplate = {
@@ -68,8 +63,7 @@ class App extends Component {
         buildDate={this.state.plugin.BuildDate}
         tryReconnect={this.ws.tryReconnect}
       >
-          <div id='mode-container' className='w-full flex flex-col'>
-
+        <div className='w-full flex flex-col'>
           <Switch>
             <Route exact path="/">
               <Redirect to='/context'/>
@@ -84,36 +78,34 @@ class App extends Component {
             </Route>
             <Route exact path="/setup">
               <ToggleList
-                label='Scenarios'
+                label='Scenario'
                 list={scenarios}
                 current={scenarioCurrent}
                 set={setScenario}
               />
               <ToggleList
-                label='Sites'
+                label='Site'
                 list={sites}
                 current={siteCurrent}
                 set={setSite}
               />
+              <Notes site={sites[siteCurrent]}/>
             </Route>
-            <Route exact path='/build'>z
+            <Route exact path='/build'>
               <ToggleList
-                label='Scenarios'
+                label='Scenario'
                 list={scenarios}
                 current={scenarioCurrent}
                 set={setScenario}
               />
               <ToggleList
-                label='Sites'
+                label='Site'
                 list={sites}
                 current={siteCurrent}
                 set={setSite}
               />
               <MassingGoals plugin={this.state.plugin} ws={this.ws} />
-              <SiteDetails
-                site={sites[siteCurrent]}
-                scenario={scenarios[scenarioCurrent]}
-              />
+              <Zoning site={sites[siteCurrent]} scenario={scenarios[scenarioCurrent]}/>
               {/* <GraphicSiteScenario
                 scenarios={scenarios}
                 scenarioCurrent={scenarioCurrent}
@@ -122,14 +114,34 @@ class App extends Component {
               /> */}
             </Route>
             <Route exact path='/measure'>
-              <Dropdown label='Site' list={sites} current={siteCurrent} set={setSite}/>
-              <Dropdown label='Scenario' list={scenarios} current={scenarioCurrent} set={setScenario}/>
+              <ToggleList
+                label='Scenario'
+                list={scenarios}
+                current={scenarioCurrent}
+                set={setScenario}
+              />
+              <ToggleList
+                label='Site'
+                list={sites}
+                current={siteCurrent}
+                set={setSite}
+              />
               <SiteTable pluginState={this.state.plugin} />
             </Route>
             <Route exact path='/summarize'>
-                <Dropdown label='Site' list={sites} current={siteCurrent} set={setSite}/>
-                <Dropdown label='Scenario' list={scenarios} current={scenarioCurrent} set={setScenario}/>
-              </Route>
+              <ToggleList
+                label='Scenario'
+                list={scenarios}
+                current={scenarioCurrent}
+                set={setScenario}
+              />
+              <ToggleList
+                label='Site'
+                list={sites}
+                current={siteCurrent}
+                set={setSite}
+              />              
+            </Route>
           </Switch>
           </div>
           <br/>

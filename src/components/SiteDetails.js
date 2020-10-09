@@ -1,36 +1,51 @@
 import React from 'react';
+import { formatNum } from '../utils/format';
 
-const formatNum = (n) => { return n.toLocaleString(undefined, {maximumFractionDigits:0}); };
-
-export default function SiteDetails({ site, scenario }) {
-    if (!site || !scenario) return <div>Loading...</div>
-    const lots = site.LotIDs.join(', ')
-    const zoningParams = site.Scenarios[scenario.ID]
-    const zoningRows = Object.entries(zoningParams).map(([k, v], i) => (
-        <tr key={i}>
-            <td className='text-left'>{k}</td>
-            <td className='text-right'>{v}</td>
-        </tr>
-    ))
-    
-    return (
-        <div className='grid grid-cols-2 gap-4'>
-            <div>
-                <h3>Details</h3>
-                <div>Using lots: {lots}</div>
-                <div>Group: {site.Group}</div>
-                <div>Notes: {site.Note}</div>
-            </div>
-            <div>
-                <h3>Zoning</h3>
-                <table>
-                    <tbody className="divide-y divide-gray-400">
-                        {zoningRows}
-                    </tbody>
-                </table>
-                <br/>
-            </div>
-        </div>
-    )
+export function Zoning({ site, scenario }) {
+  if (!site || !scenario) return <div/>
+  const zoningParams = site.Scenarios[scenario.ID]
+  const zoningRows = Object.entries(zoningParams).map(([k, v], i) => (
+    <tr key={i}>
+      <td className='text-left'>{k}</td>
+      <td className='text-right'>{v}</td>
+    </tr>
+  ))  
+  return (
+    <div className='mb-4'>
+      <h3>Zoning</h3>
+      <table>
+        <tbody className='divide-y divide-gray-400'>
+          {zoningRows}
+        </tbody>
+      </table>
+      <br/>
+    </div>
+  )
 }
 
+export function Notes({ site }) {
+  if (!site) return <div/>
+  const lots = site.LotIDs.join(', ')
+  return (
+    <div className='mb-4'>
+      <h3>Site Details</h3>
+      <table>
+        <tbody className='divide-y divide-gray-400'>
+          <tr>
+            <td>Lots</td>
+            <td>{lots}</td>
+          </tr>
+          <tr>
+            <td>Group</td>
+            <td>{site.Group}</td>
+          </tr>
+          <tr>
+            <td>Notes</td>
+            <td>{site.Note}</td>
+          </tr>          
+        </tbody>
+      </table>
+      <br/>
+    </div>
+  )
+}
