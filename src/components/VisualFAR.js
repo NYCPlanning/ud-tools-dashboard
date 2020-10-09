@@ -5,7 +5,7 @@ export default function VisualFAR({ data, color }) {
   const svgRef = useRef();
 
   useEffect(() => {
-    if (!data[0]) return;
+    if (!data || data.length === 0 || isNaN(data[0])) return
     const svg = select(svgRef.current);
     svg
       .selectAll('circle')
