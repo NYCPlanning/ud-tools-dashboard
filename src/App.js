@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Switch, Route } from 'react-router-dom';
+import { Switch, Route, Redirect } from 'react-router-dom';
 import MapPanel from './components/MapPanel';
 import GraphicMassingGoals from './components/GraphicMassingGoals';
 import MassingGoals from './components/MassingGoals';
@@ -53,17 +53,13 @@ class App extends Component {
 
   render() {
     const modes = [];
-    const scenarios = this.state.plugin.Scenarios;
-    const scenarioCurrent = this.state.plugin.ScenarioCurrent;
-    const setScenario = this.ws.setScenario;
-    const sites = this.state.plugin.Sites;
-    const siteCurrent = this.state.plugin.SiteCurrent;
-    const setSite = this.ws.setSite;
-
-    const grid = scenarios.map((scenario, i) => (
-      sites.map((site) => (site.ID))
-    ));
-    const location = [0,0]
+    const { 
+      Sites: sites, 
+      SiteCurrent: siteCurrent,
+      Scenarios: scenarios,
+      ScenarioCurrent: scenarioCurrent
+    } = this.state.plugin;
+    const { setScenario, setSite } = this.ws;
 
     return (
       <Layout 
@@ -76,65 +72,61 @@ class App extends Component {
 
           <Switch>
             <Route exact path="/">
-              </Route>
-              <Route exact path="/context">
-                <MapPanel
-                  ws={this.ws} 
-                  onSubmitMessage={messageString => this.ws.submitMessage('setSiteBounds', messageString)} 
-                />
-              </Route>
-              <Route exact path="/setup">
-                <ToggleList 
-                  label='Scenarios'
-                  list={scenarios}
-                  current={scenarioCurrent}
-                  set={setScenario}
-                />
-                <ToggleList 
-                  label='Sites'
-                  list={sites}
-                  current={siteCurrent}
-                  set={setSite}
-                />
-                <SiteDetails 
-                  site={sites[siteCurrent]} 
-                  scenario={scenarios[scenarioCurrent]}
-                />
-              </Route>
-              <Route exact path='/build'>
-                <ToggleList 
-                  label='Scenarios'
-                  list={scenarios}
-                  current={scenarioCurrent}
-                  set={setScenario}
-                />
-                <ToggleList 
-                  label='Sites'
-                  list={sites}
-                  current={siteCurrent}
-                  set={setSite}
-                />
-                <MassingGoals ws={this.ws} />
-                {/* <GraphicSiteScenario
-                  scenarios={scenarios}
-                  scenarioCurrent={scenarioCurrent} 
-                  sites={sites}
-                  siteCurrent={siteCurrent}
-                /> */}
-                {/* <GraphicMassingGoals ws={this.ws}/>
-                { this.state.plugin.SiteCurrent && this.state.plugin.ScenarioCurrent && 
-                  <SiteDetails 
-                    site={this.state.plugin.SiteCurrent} 
-                    scenarioCurrent={this.state.plugin.ScenarioCurrent.Name}
-                  />
-                } */}
-              </Route>
-              <Route exact path='/measure'>
-                <Dropdown label='Site' list={sites} current={siteCurrent} set={setSite}/>
-                <Dropdown label='Scenario' list={scenarios} current={scenarioCurrent} set={setScenario}/>
-                <SiteTable pluginState={this.state.plugin} />
-              </Route>
-              <Route exact path='/summarize'>
+              <Redirect to='/context'/>
+            </Route>
+            <Route exact path="/context">
+              <MapPanel
+                ws={this.ws}
+                onSubmitMessage={messageString =>
+                  this.ws.submitMessage('setSiteBounds', messageString)
+                }
+              />
+            </Route>
+            <Route exact path="/setup">
+              <ToggleList
+                label='Scenarios'
+                list={scenarios}
+                current={scenarioCurrent}
+                set={setScenario}
+              />
+              <ToggleList
+                label='Sites'
+                list={sites}
+                current={siteCurrent}
+                set={setSite}
+              />
+            </Route>
+            <Route exact path='/build'>z
+              <ToggleList
+                label='Scenarios'
+                list={scenarios}
+                current={scenarioCurrent}
+                set={setScenario}
+              />
+              <ToggleList
+                label='Sites'
+                list={sites}
+                current={siteCurrent}
+                set={setSite}
+              />
+              <MassingGoals plugin={this.state.plugin} ws={this.ws} />
+              <SiteDetails
+                site={sites[siteCurrent]}
+                scenario={scenarios[scenarioCurrent]}
+              />
+              {/* <GraphicSiteScenario
+                scenarios={scenarios}
+                scenarioCurrent={scenarioCurrent}
+                sites={sites}
+                siteCurrent={siteCurrent}
+              /> */}
+            </Route>
+            <Route exact path='/measure'>
+              <Dropdown label='Site' list={sites} current={siteCurrent} set={setSite}/>
+              <Dropdown label='Scenario' list={scenarios} current={scenarioCurrent} set={setScenario}/>
+              <SiteTable pluginState={this.state.plugin} />
+            </Route>
+            <Route exact path='/summarize'>
                 <Dropdown label='Site' list={sites} current={siteCurrent} set={setSite}/>
                 <Dropdown label='Scenario' list={scenarios} current={scenarioCurrent} set={setScenario}/>
               </Route>
