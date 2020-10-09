@@ -1,16 +1,38 @@
-import React from 'react'
+import React from 'react';
+import { formatNum, formatFAR } from '../utils/format';
 
-export default function SitesList({ sites, setSite, current }) {
+export default function SitesList({ sites }) {
+  const rows = sites.map((s, i) => (
+    <tr key={i}>
+      <td className='px-4'>{s.ID}</td>
+      <td className='px-4'>{formatNum(s.ZFA.Residential)}</td>
+      <td className='px-4'>{formatNum(s.ZFA.CommunityFacility)}</td>
+      <td className='px-4'>{formatNum(s.ZFA.Commercial)}</td>
+      <td className='px-4'>{formatNum(s.ZFA.Manufacturing)}</td>
+      <td className='px-4'>{formatNum(s.ZFA.Total)}</td>
+      <td className='px-4'>{s.Counts.ResidentialUnits}</td>
+    </tr>
+  ))  
   return (
-    <div className='flex flex-wrap'>
-      <h3 className='m-2 ml-0'>Sites:</h3>
-      {sites &&
-          sites.map((site, i) =>
-            <div key={site.ID} onClick={() => setSite(site.ID)} className={`cursor-pointer p-1 py-0 m-2 ${ current && site.ID === current.ID ? 'bg-black text-white' : 'bg-gray-200' }`}>
-              {site.ID}
-            </div>
-          )
-      }
+    <div className='mb-4'>
+      <h3>Sites</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>R</th>
+            <th>CF</th>
+            <th>C</th>
+            <th>M</th>
+            <th>Total</th>
+            <th>R Units</th>
+          </tr>
+        </thead>
+        <tbody className='divide-y divide-gray-400'>
+          {rows}
+        </tbody>
+      </table>
+      <br/>
     </div>
   )
 }

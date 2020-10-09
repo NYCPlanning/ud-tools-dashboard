@@ -6,6 +6,7 @@ import { ToggleList } from './components/Generic';
 import MapPanel from './components/MapPanel';
 import MassingGoals from './components/MassingGoals';
 import { Zoning, Notes } from './components/SiteDetails';
+import SitesList from './components/SitesList';
 import SiteTable from './components/SiteTable';
 
 class App extends Component {
@@ -134,12 +135,7 @@ class App extends Component {
                 current={scenarioCurrent}
                 set={setScenario}
               />
-              <ToggleList
-                label='Site'
-                list={sites}
-                current={siteCurrent}
-                set={setSite}
-              />              
+              <SitesList sites={sites} />
             </Route>
           </Switch>
           </div>
