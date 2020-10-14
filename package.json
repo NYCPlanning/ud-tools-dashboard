@@ -17,7 +17,8 @@
     "react-router-dom": "^5.2.0",
     "react-scripts": "^3.4.3",
     "react-spring": "^8.0.27",
-    "react-use-gesture": "^7.0.16"
+    "react-use-gesture": "^7.0.16",
+    "xlsx": "^0.16.8"
   },
   "scripts": {
     "build:css": "postcss src/style/main.css -o src/main.css",
