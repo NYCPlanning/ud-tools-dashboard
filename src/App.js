@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import { WsProvider } from './utils/ws';
 import Layout from './layouts/default';
+import DownloadExcel from './components/DownloadExcel';
 import { ToggleList } from './components/Generic';
 import MapPanel from './components/MapPanel';
 import MassingGoals from './components/MassingGoals';
@@ -48,13 +49,14 @@ class App extends Component {
   }
 
   render() {
+    const { setScenario, setSite } = this.ws;
+    const pluginState = this.state.plugin;
     const { 
       Sites: sites, 
       SiteCurrent: siteCurrent,
       Scenarios: scenarios,
       ScenarioCurrent: scenarioCurrent
-    } = this.state.plugin;
-    const { setScenario, setSite } = this.ws;
+    } = pluginState;
 
     return (
       <Layout 
@@ -135,6 +137,7 @@ class App extends Component {
                 current={scenarioCurrent}
                 set={setScenario}
               />
+              <DownloadExcel state={this.state.plugin} />
               <SitesList sites={sites} />
             </Route>
           </Switch>
