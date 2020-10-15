@@ -3,6 +3,7 @@ import { Switch, Route, Redirect } from 'react-router-dom';
 import { WsProvider } from './utils/ws';
 import Layout from './layouts/default';
 import DownloadExcel from './components/DownloadExcel';
+import GenerateRWCDS from './components/GenerateRWCDS';
 import { ToggleList } from './components/Generic';
 import MapPanel from './components/MapPanel';
 import MassingGoals from './components/MassingGoals';
@@ -137,7 +138,8 @@ class App extends Component {
                 current={scenarioCurrent}
                 set={setScenario}
               />
-              <DownloadExcel state={this.state.plugin} />
+              <GenerateRWCDS ws={this.ws} />
+              <DownloadExcel state={this.state.plugin} rwcds={this.state.rwcds} />
               <SitesList sites={sites} />
             </Route>
           </Switch>

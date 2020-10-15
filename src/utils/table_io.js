@@ -2,20 +2,9 @@ import XLSX from 'xlsx';
 import _ from 'lodash';
 import { formatFAR, formatNum, currentISODate } from './format';
 
-const sheetNames = ['sites_existing', 'sites_no-action', 'sites_with-action', 'sites_increment', 'sites_lots', 'lots']
-const testArray = [
-        {
-          'ID': 2,
-          'Name': 'Jason'
-        },
-        {
-          'ID': 3,
-          'Name': 'Steve'
-        },
-      ];
-
 export default class RWCDSWorkbook {
-  constructor(state) {
+  constructor(state, rwcds) {
+    this.rwcds = rwcds;
     this.state = state;
     this.book = XLSX.utils.book_new();
     this.initialize();
@@ -23,6 +12,7 @@ export default class RWCDSWorkbook {
 
   initialize = () => {
     let wb = this.book;
+    const rwcds = this.rwcds;
     const sites = this.state.Sites;
     const lots = this.state.LotTable;
 
@@ -30,27 +20,26 @@ export default class RWCDSWorkbook {
       let sheetContent = {}
       switch (s) {
         case 'sites_existing':
-        case 'sites_no-action':
-        case 'sites_with-action':
-        case 'sites_increment':
-          let sitesRemapped = sites.map((s) => {
-            let rm = {};
-            // assign from sites field mapping
-            Object.entries(siteFieldMapping)
-              .forEach(([k, v]) => ([
-                rm[k] = _.get(s, v)
-              ])
-            );
-            return rm;
-          });
-          sheetContent = XLSX.utils.json_to_sheet(sitesRemapped);
+          sheetContent = this.assignFromRWCDS(rwcds, 'Existing');
           break;
-      // case 'sites_increment':
-      //   const copy = {f: `IF(ISBLANK(${sheetNames[0]}!A1),"",${sheetNames[0]}!A1)`}
-      //   const sum = {f: 'A2+A3'};
-      //   // use https://stackoverflow.com/questions/29520596/how-to-set-formula-for-cell-data-for-export-to-xlsx-sheetjs-js-xlsx-https
-      //   // fill sheet with formula
-      //   break;
+        case 'sites_no-action':
+          sheetContent = this.assignFromRWCDS(rwcds, 'No_Action');
+          break;  
+        case 'sites_with-action':
+          sheetContent = this.assignFromRWCDS(rwcds, 'With_Action');
+          break;
+        case 'sites_increment':
+          // for increment, define a formula that diffs between no action and with action
+          // use https://stackoverflow.com/questions/29520596/how-to-set-formula-for-cell-data-for-export-to-xlsx-sheetjs-js-xlsx-https
+          // let sheet = wb.Sheets[s];
+          // const copyFormula = {f: `IF(ISBLANK(${sheetNames[0]}!A1),"",${sheetNames[0]}!A1)`};
+          // const copyOrigin = XLSX.utils.encode_cell({r:0, c:0});
+          // const copyRange = { s: { r: 0, c: 0}, e: { c: 6}};
+          // sheet[copyOrigin] = copyFormula;
+          // sheet['!ref'] = XLSX.utils.encode_range(copyRange);
+          // const sum = {f: 'A2+A3'};
+          // sheetContent = XLSX.utils.json_to_sheet({});
+          break;
         case 'sites_lots':
           let sitesLots = sites.map((s) => (
               {
@@ -81,18 +70,49 @@ export default class RWCDSWorkbook {
           sheetContent = XLSX.utils.json_to_sheet(lotsRemapped)
           break;
         default:
-          sheetContent = XLSX.utils.json_to_sheet(testArray)
+          console.log('error');
+          break;
+          //sheetContent = XLSX.utils.json_to_sheet({});
       }
       wb.SheetNames.push(s);
       wb.Sheets[s] = sheetContent;
     });
   }
 
+  // checks to make sure a scenario exists in a RWCDS object and assigns remapped sites
+  assignFromRWCDS = (rwcds, key) => {
+    if (rwcds && rwcds[key]) {
+      return XLSX.utils.json_to_sheet(
+        this.remapSites(
+          rwcds[key]
+        )
+      )
+    } else {
+      return null;
+    }
+  };
+
+  // returns a restructured list of sites using the mapping defined below
+  remapSites = (sites) => (
+    sites.map((s) => {
+      let rm = {};
+      Object.entries(siteFieldMapping)
+        .forEach(([k, v]) => ([
+          rm[k] = _.get(s, v)
+        ])
+      );
+      return rm;
+    })
+  );
+
+  // attempt to download/save the current workbook
   download = () => {
     const fileName = `${currentISODate()}.xlsx`
     XLSX.writeFile(this.book, fileName)
-  }
+  };
 }
+
+const sheetNames = ['sites_existing', 'sites_no-action', 'sites_with-action', 'sites_increment', 'sites_lots', 'lots']
 
 const siteFieldMapping = {
   'Site ID': 'ID',

@@ -17,7 +17,10 @@ export class WsProvider {
   
       if (message.action === 'updatePluginState') {
         this.app.setState({'plugin': message.body});
-        localStorage.setItem('plugin', JSON.stringify(message.body));
+      }
+
+      if (message.action === 'updateRWCDS') {
+        this.app.setState({'rwcds': message.body});
       }
     }
 
