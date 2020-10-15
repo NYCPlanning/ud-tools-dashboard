@@ -1,7 +1,8 @@
 import React from 'react';
-import RWCDSWorkbook from '../utils/excel';
+import RWCDSWorkbook from '../utils/table_io';
 
 export default function DownloadExcel({state}) {
+  if (!state.LotTable || !state.Sites) return <div />
   const xl = new RWCDSWorkbook(state);
 
   const downloadExcel = (e) => {
