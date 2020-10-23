@@ -1,5 +1,5 @@
 import React from 'react';
-import { formatFAR } from '../utils/format';
+import { formatFAR } from '../../utils/format';
 
 class MassingGoals extends React.Component {
   constructor(props) {
@@ -75,7 +75,7 @@ class MassingGoals extends React.Component {
                    className={'border border-black mb-2'}
             />
           </label>
-          <input className='cursor-pointer' type='submit' value='Set Massing Goals' />
+          <button value='Set Massing Goals'>Set Massing Goals</button>
         </form>
       </div>
     )

@@ -5,8 +5,8 @@ export default function GenerateRWCDS({ws}) {
     ws.submitMessage('getRWCDS');
   }
   return (
-    <div className='flex'>
-      <div className='bg-blue-500 p-2' onClick={(e) => generate(e)}>Generate RWCDS</div>
+    <div className='flex mb-2'>
+      <button onClick={(e) => generate(e)}>Generate RWCDS</button>
     </div>
   )
 };

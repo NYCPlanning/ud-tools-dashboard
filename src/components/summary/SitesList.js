@@ -1,5 +1,5 @@
 import React from 'react';
-import { formatNum, formatFAR } from '../utils/format';
+import { formatNum, formatFAR } from '../../utils/format';
 
 export default function SitesList({ sites }) {
   const rows = sites.map((s, i) => (
@@ -14,9 +14,9 @@ export default function SitesList({ sites }) {
     </tr>
   ))  
   return (
-    <div className='mb-4'>
+    <div className='mb-4 w-full'>
       <h3>Sites</h3>
-      <table>
+      <table className='w-full'>
         <thead>
           <tr>
             <th>ID</th>
