@@ -2,7 +2,15 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Your custom CSS here */
+:root {
+    --dcp-orange: #db691b;
+    --dcp-orange-dark: #833E10;
+    --dcp-orange-light: #FBEFE8;
+    --contrast-blue: #287bd9;
+    --contrast-blue-darker: #246fc3;
+    --contrast-blue-darkest: #08192b;
+    --transparent-white: rgba(255, 255, 255, 0);
+}
 
 #root {
     min-height: 100vh;
@@ -11,6 +19,7 @@
 
 html, body {
     font-family: Arial, Helvetica, sans-serif;
+    color: var(--contrast-blue-darker);
 }
 
 .gradient {
@@ -22,9 +31,14 @@ html, body {
 }
 
 .nav-active {
-    background: blue;
+    background: var(--contrast-blue-darker);
     color: white;
 }
+
+/* .command {
+    border-left: 2px solid var(--contrast-blue);
+    padding-left: 1em;
+} */
 
 h1, h2, h3 {
     font-weight: bold;
@@ -70,8 +84,24 @@ code {
 }
 
 a {
-    color: blue;
+    color: var(--contrast-blue-darker);
     text-decoration: underline;
+}
+
+button, .button {
+    border: 1px solid var(--contrast-blue-darker);
+    color: var(--contrast-blue-darker);
+    cursor: pointer;
+    text-decoration: none;
+}
+
+button {
+    padding: 0.25em;
+}
+
+.button-active {
+    background: var(--contrast-blue-darker);
+    color: white;
 }
 
 .square {
