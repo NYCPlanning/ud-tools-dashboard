@@ -53,30 +53,33 @@ class MassingGoals extends React.Component {
     const goalsString = `Site ${site.ID} has ${farAvailableString} available. Current goals are to provide ${useString}, with ${flHtString}.`
     return (
       <div className='flex flex-col mb-4'>
-        <h3>Massing Goals</h3>
-        {goalsString}
-        <br/>
-        <form onSubmit={this.handleSubmit} className='mt-4'>
-          <label className='block'>
-            Floor Heights: 
-            <input type='text'
-                   name='floorHts'
-                   value={this.state.floorHts.join(',')}
-                   onChange={this.handleChange} 
-                   className={'border border-black mb-2'}
-            />
-          </label>
-          <label className='block'>
-            Floor Use Groups: 
-            <input type='text'
-                   name='useGroups' 
-                   value={this.state.useGroups.join(',')}
-                   onChange={this.handleChange} 
-                   className={'border border-black mb-2'}
-            />
-          </label>
-          <button value='Set Massing Goals'>Set Massing Goals</button>
-        </form>
+        <div className='mb-4'>
+          <h3>Massing Goals</h3>
+          {goalsString}
+        </div>
+        <div className='flex justify-between items-baseline'>
+          <div>
+            <label className='block mb-2'>
+                Floor Heights: 
+                <input type='text'
+                      className='ml-2'
+                      name='floorHts'
+                      value={this.state.floorHts.join(',')}
+                      onChange={this.handleChange} 
+                />
+              </label>
+              <label className='block mb-2'>
+                Floor Use Groups: 
+                <input type='text'
+                      className='ml-2'
+                      name='useGroups' 
+                      value={this.state.useGroups.join(',')}
+                      onChange={this.handleChange} 
+                />
+              </label>
+            </div>
+            <button value='Set Massing Goals' onClick={this.handleSubmit}>Set Massing Goals</button>
+        </div>
       </div>
     )
   }
