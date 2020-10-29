@@ -10,7 +10,7 @@ const Layout = ({ children, connected, version, buildDate, tryReconnect }) => {
     return(
         <Router>
             <div className="flex flex-col">
-                <div className='gradient top-0 left-0 w-full h-8 z-0'/>
+                {/* <div className='gradient top-0 left-0 w-full h-8 z-0'/> */}
                 <div className='flex flex-wrap p-4 pr-6 w-full max-w-screen-md mb-8'>
                     <div className="flex flex-col w-full" >
                         <Nav connected={connected} 
