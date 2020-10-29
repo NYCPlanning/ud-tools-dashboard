@@ -16,7 +16,7 @@ export function Dropdown({ label, list, current, set }) {
 }
 
 export function ToggleList({ label, list, current, set }) {
-  if (!list || list.length === 0 ) return <div>No {label} loaded.</div>
+  if (!list || list.length === 0 ) return null
   const itemCurrent = list[current]
 
   return (
