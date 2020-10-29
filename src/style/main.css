@@ -88,6 +88,10 @@ a {
     text-decoration: underline;
 }
 
+input {
+    border-bottom: 1px solid var(--contrast-blue-darker);
+}
+
 button, .button {
     border: 1px solid var(--contrast-blue-darker);
     color: var(--contrast-blue-darker);
@@ -97,6 +101,11 @@ button, .button {
 
 button {
     padding: 0.25em;
+}
+
+button:active, .button:active {
+    background: var(--contrast-blue-darker);
+    color: white;
 }
 
 .button-active {
