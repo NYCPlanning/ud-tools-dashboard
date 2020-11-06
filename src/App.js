@@ -29,7 +29,7 @@ class App extends Component {
     this.setState(state => (this.stateTemplate))
   }
 
-  componentWillUpdate(prevProps, prevState) {
+  componentDidUpdate(prevProps, prevState) {
     const newSites = prevState.sites !== this.state.sites && this.state.sites.length > 0
     const newScenarios = prevState.scenarios !== this.state.scenarios && this.state.scenarios.length > 0
     const siteChanged = prevState.currentSite !== this.state.currentSite
