@@ -5,9 +5,8 @@ import VisualFAR from './VisualFAR';
 
 export default function SiteTable({ site, scenarioCurrent }) {
     if ( !site ) return <div>Loading SiteTable</div>;
-    const zone = site.Scenarios[scenarioCurrent.ID];
-    console.log(zone);
     
+    const zone = site.Scenarios[scenarioCurrent.ID];
     const zoningLotArea = site.ZoningLot.Area;
     const utilized = {
       R: site.ZFA.Residential / zoningLotArea,
