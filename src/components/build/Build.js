@@ -1,14 +1,19 @@
 import React from 'react';
 import { ToggleList } from '../Generic';
 import MassingGoals from './MassingGoals';
-import { Zoning, Notes } from '../SiteDetails';
+import { Zoning } from '../SiteDetails';
 
 export default function Build({ state, ws}) {
   if ( !state.plugin ) return <div>Loading</div>
   const { setSite, setScenario } = ws;
-  const { plugin: { Sites: sites, SiteCurrent: siteCurrent, Scenarios: scenarios, ScenarioCurrent: scenarioCurrent }} = state;
-  const site = sites[siteCurrent];
-  const scenario = scenarios[scenarioCurrent];
+  const { 
+    plugin: { 
+      Sites: sites, 
+      SiteCurrent: siteCurrent, 
+      Scenarios: scenarios, 
+      ScenarioCurrent: scenarioCurrent 
+    }
+  } = state;
 
   return (
     <div>

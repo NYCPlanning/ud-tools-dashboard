@@ -1,6 +1,6 @@
 import XLSX from 'xlsx';
 import _ from 'lodash';
-import { formatFAR, formatNum, currentISODate } from './format';
+import { currentISODate } from './format';
 
 export default class RWCDSWorkbook {
   constructor(state, rwcds) {

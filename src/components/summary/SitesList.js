@@ -1,5 +1,5 @@
 import React from 'react';
-import { formatNum, formatFAR } from '../../utils/format';
+import { formatNum } from '../../utils/format';
 
 export default function SitesList({ sites }) {
   const rows = sites.map((s, i) => (

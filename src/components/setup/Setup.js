@@ -1,7 +1,7 @@
 import React from 'react';
 import { ToggleList } from '../Generic';
 import { Notes } from '../SiteDetails';
-import AddSite from './AddSite';
+// import AddSite from './AddSite';
 import AddScenario from './AddScenario';
 
 export default function Summary({ state, ws }) {

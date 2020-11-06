@@ -1,16 +1,15 @@
 import React from 'react';
 import DownloadExcel from './DownloadExcel';
 import GenerateRWCDS from './GenerateRWCDS';
-import { ToggleList, Notes } from '../Generic';
+import { ToggleList } from '../Generic';
 import SitesList from './SitesList';
 
 export default function Summary({ state, ws }) {
   if (!state || !ws ) return;
 
-  const { setScenario, setSite } = ws;
+  const { setScenario } = ws;
   const { 
     Sites: sites, 
-    SiteCurrent: siteCurrent,
     Scenarios: scenarios,
     ScenarioCurrent: scenarioCurrent
   } = state.plugin;

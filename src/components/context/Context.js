@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import MapPanel from './MapPanel';
 import ImportModelControls from './ImportModelControls';
 
@@ -10,5 +10,3 @@ export default function Context({ ws }) {
     </div>
   )
 };
-
-

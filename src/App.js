@@ -49,8 +49,6 @@ class App extends Component {
   }
 
   render() {
-    const { setScenario, setSite } = this.ws;
-
     return (
       <Layout 
         connected={this.state.connected}
