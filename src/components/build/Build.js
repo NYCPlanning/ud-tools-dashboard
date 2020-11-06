@@ -1,5 +1,6 @@
 import React from 'react';
 import { ToggleList } from '../Generic';
+import GenerateButton from './GenerateButton';
 import MassingGoals from './MassingGoals';
 import { Zoning } from '../SiteDetails';
 
@@ -31,7 +32,8 @@ export default function Build({ state, ws}) {
       />
       <hr/>
       <MassingGoals plugin={state.plugin} ws={ws} />
-      <hr/>
+      <GenerateButton ws={ws} label='Envelope' />
+      <GenerateButton ws={ws} label='Massing' />
       <Zoning site={sites[siteCurrent]} scenario={scenarios[scenarioCurrent]}/>
       {/* <GraphicSiteScenario
         scenarios={scenarios}
