@@ -72,7 +72,8 @@ class MapPanel extends Component {
             // here's where you would define the "send" event
             
             t.setState({ message: wktText})
-            t.props.onSubmitMessage(t.state.message)
+            t.props.ws.submitMessage('setSiteBounds', t.state.message)
+
             //send(wktText);
           });
   
@@ -90,24 +91,10 @@ class MapPanel extends Component {
       // }
 
       return (
-        <div>
-          {/* <div className='grid grid-cols-2 gap-4 w-full' > */}
-            {/* <div>
-              <form>
-              <label >
-                Buildings
-                <input
-                  name="isGoing"
-                  type="checkbox"
-                  checked={this.state.isGoing}
-                  onChange={this.handleInputChange} />
-              </label>                
-              </form>
-            </div> */}
-            <div className='w-full square relative z-0'>
-              <div className='absolute top-0 bottom-0 left-0 right-0 behind' ref={this.mapTarget}></div>
-            </div>
-          {/* </div> */}
+        <div className='mb-4'>
+          <div className='w-full square relative z-0'>
+            <div className='absolute top-0 bottom-0 left-0 right-0 behind' ref={this.mapTarget}></div>
+          </div>
         </div>
       )
     }

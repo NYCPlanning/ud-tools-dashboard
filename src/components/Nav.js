@@ -16,11 +16,11 @@ export default function Nav({connected, tryReconnect}) {
           <Status connected={connected} tryReconnect={tryReconnect}/>
         </div>
         <div className='flex justify-between'>
-          <NavLink to='/context' activeClassName='nav-active'>Context</NavLink>
-          <NavLink to='/setup' activeClassName='nav-active'>Setup</NavLink>
-          <NavLink to='/build' activeClassName='nav-active'>Build</NavLink>
-          <NavLink to='/measure' activeClassName='nav-active'>Measure</NavLink>
-          <NavLink to='/summarize' activeClassName='nav-active'>Summary</NavLink>
+          <NavLink to='/context' className='button px-2' activeClassName='button-active'>Context</NavLink>
+          <NavLink to='/setup' className='button px-2' activeClassName='button-active'>Setup</NavLink>
+          <NavLink to='/build' className='button px-2' activeClassName='button-active'>Build</NavLink>
+          <NavLink to='/measure' className='button px-2' activeClassName='button-active'>Measure</NavLink>
+          <NavLink to='/summarize' className='button px-2' activeClassName='button-active'>Summary</NavLink>
         </div>
       </div>
   )

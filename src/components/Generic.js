@@ -16,17 +16,18 @@ export function Dropdown({ label, list, current, set }) {
 }
 
 export function ToggleList({ label, list, current, set }) {
-  if (!list || list.length === 0) return <div>No {label} loaded.</div>
+  if (!list || list.length === 0 ) return null
   const itemCurrent = list[current]
+
   return (
-    <div className='flex flex-wrap mb-4'>
-      <h3 className='m-2 ml-0'>{label}:</h3>
+    <div className='flex flex-wrap items-baseline mb-4'>
+      <span className='m-2 ml-0 font-bold'>{label}</span>
       {list &&
           list.map((item, i) =>
             <div 
               key={item.ID || item.Name} 
               onClick={() => set(item.ID)} 
-              className={`cursor-pointer text-xs p-2 py-1 m-2 ${ item.ID === itemCurrent.ID ? 'bg-black text-white' : 'bg-gray-200' }`}
+              className={`p-2 py-1 mr-2 ${ item.ID === itemCurrent.ID ? 'button-active' : 'button' }`}
             >
               {item.ID || item.Name}
             </div>
