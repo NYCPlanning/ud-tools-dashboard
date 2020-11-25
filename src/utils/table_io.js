@@ -23,10 +23,10 @@ export default class RWCDSWorkbook {
           sheetContent = this.assignFromRWCDS(rwcds, 'Existing');
           break;
         case 'sites_no-action':
-          sheetContent = this.assignFromRWCDS(rwcds, 'No_Action');
+          sheetContent = this.assignFromRWCDS(rwcds, 'NoAction');
           break;  
         case 'sites_with-action':
-          sheetContent = this.assignFromRWCDS(rwcds, 'With_Action');
+          sheetContent = this.assignFromRWCDS(rwcds, 'WithAction');
           break;
         case 'sites_increment':
           // for increment, define a formula that diffs between no action and with action
