@@ -6,7 +6,9 @@
     --dcp-orange: #db691b;
     --dcp-orange-dark: #833E10;
     --dcp-orange-light: #FBEFE8;
+    --dcp-yellow: #ffc861;
     --contrast-blue: #287bd9;
+    --contrast-blue-light: #89cef6;
     --contrast-blue-darker: #246fc3;
     --contrast-blue-darkest: #08192b;
     --transparent-white: rgba(255, 255, 255, 0);
@@ -81,6 +83,13 @@ code {
     margin: 0 .2rem;
     font-family: monospace, monospace;
     letter-spacing: -0.03em;
+}
+
+.assumption {
+    font-family: monospace, monospace;
+    font-size: 75%;
+    letter-spacing: -0.03em;
+    color: var(--contrast-blue-light);
 }
 
 a {
