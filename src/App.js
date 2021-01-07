@@ -8,6 +8,8 @@ import Measure from './components/measure/Measure';
 import Setup from './components/setup/Setup';
 import Summary from './components/summary/Summary';
 
+const AssumptionsContext = React.createContext({});
+
 class App extends Component {
   stateTemplate = {
     connected: false,
@@ -56,31 +58,34 @@ class App extends Component {
         buildDate={this.state.plugin.BuildDate}
         tryReconnect={this.ws.tryReconnect}
       >
-        <div className='w-full flex flex-col mb-16'>
-          <Switch>
-            <Route exact path="/">
-              <Redirect to='/context'/>
-            </Route>
-            <Route exact path="/context">
-              <Context ws={this.ws} />
-            </Route>
-            <Route exact path="/setup">
-              <Setup state={this.state} ws={this.ws} />
-            </Route>
-            <Route exact path='/build'>
-              <Build state={this.state} ws={this.ws} />
-            </Route>
-            <Route exact path='/measure'>
-              <Measure state={this.state} ws={this.ws} />
-            </Route>
-            <Route exact path='/summarize'>
-              <Summary state={this.state} ws={this.ws} />
-            </Route>
-          </Switch>
-          </div>
+        <AssumptionsContext.Provider value={this.state.plugin.Assumptions}>
+          <div className='w-full flex flex-col mb-16'>
+            <Switch>
+              <Route exact path="/">
+                <Redirect to='/context'/>
+              </Route>
+              <Route exact path="/context">
+                <Context ws={this.ws} />
+              </Route>
+              <Route exact path="/setup">
+                <Setup state={this.state} ws={this.ws} />
+              </Route>
+              <Route exact path='/build'>
+                <Build state={this.state} ws={this.ws} />
+              </Route>
+              <Route exact path='/measure'>
+                <Measure state={this.state} ws={this.ws} />
+              </Route>
+              <Route exact path='/summarize'>
+                <Summary state={this.state} ws={this.ws} />
+              </Route>
+            </Switch>
+            </div>
+          </AssumptionsContext.Provider>
       </Layout>
     )
   }
 }
-
+ 
+export { AssumptionsContext };
 export default App;
