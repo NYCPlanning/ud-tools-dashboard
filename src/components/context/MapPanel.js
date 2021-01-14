@@ -19,10 +19,6 @@ class MapPanel extends Component {
         }
     };
 
-    static propTypes = {
-        onSubmitMessage: PropTypes.func.isRequired
-    };
-
     // state = {
     //     message: ''
     // };

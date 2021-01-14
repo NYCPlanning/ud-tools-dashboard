@@ -27,8 +27,7 @@ export function Notes({ site }) {
   const lots = site.LotIDs.join(', ')
   return (
     <div className='mb-4 w-full'>
-      <hr/>
-      <div className='my-4 font-bold'>Details</div>
+      <h3>Site Details</h3>
       <table className='w-full'>
         <tbody className='divide-y divide-gray-400'>
           <tr>

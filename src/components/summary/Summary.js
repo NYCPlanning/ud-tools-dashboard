@@ -1,7 +1,7 @@
 import React from 'react';
 import DownloadExcel from './DownloadExcel';
 import GenerateRWCDS from './GenerateRWCDS';
-import { ToggleList } from '../Generic';
+import ToggleList from '../ToggleList';
 import SitesList from './SitesList';
 
 export default function Summary({ state, ws }) {
@@ -14,7 +14,8 @@ export default function Summary({ state, ws }) {
     ScenarioCurrent: scenarioCurrent
   } = state.plugin;
 
-  return (
+  if (sites.length < 1) return <span>No Sites defined.</span>
+  else return (
     <div>
       <ToggleList
         label='Scenario'

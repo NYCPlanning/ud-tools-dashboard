@@ -1,6 +1,5 @@
 import React from 'react';
-import { ToggleList } from '../Generic';
-import { Notes } from '../SiteDetails';
+import ToggleList from '../ToggleList';
 // import AddSite from './AddSite';
 import AddScenario from './AddScenario';
 
@@ -37,14 +36,13 @@ export default function Summary({ state, ws }) {
         set={setSite}
       />
       <ToggleList
-        label='Zone'
+        label='Custom Zones:'
         list={zones}
         current={zoneCurrent}
         set={setZone}
       />
-      <AddScenario ws={ws}/>
+      {/* <AddScenario ws={ws}/> */}
       {/* <AddSite scenarios={scenarios} ws={ws}/> */}
-      <Notes site={sites[siteCurrent]}/>
     </div>
   )
 };

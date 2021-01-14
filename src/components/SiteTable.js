@@ -4,7 +4,7 @@ import * as color from '../utils/color';
 import VisualFAR from './VisualFAR';
 
 export default function SiteTable({ site, scenarioCurrent }) {
-    if ( !site ) return <div>Loading SiteTable</div>;
+    if ( !site ) return null;
     
     const zone = site.Scenarios[scenarioCurrent.ID];
     const zoningLotArea = site.ZoningLot.Area;

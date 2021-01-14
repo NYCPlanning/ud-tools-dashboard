@@ -6,7 +6,7 @@ export default function Context({ ws }) {
   return (
     <div>
       <MapPanel ws={ws} />
-      <ImportModelControls ws={ws} />
+      {/* <ImportModelControls ws={ws} /> */}
     </div>
   )
 };

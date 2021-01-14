@@ -1,5 +1,5 @@
 import React from 'react';
-import { ToggleList } from '../Generic';
+import ToggleList from '../ToggleList';
 import SiteTable from '../SiteTable';
 import ParkingGeneric from './Parking';
 import Dimensions from './Dimensions';
