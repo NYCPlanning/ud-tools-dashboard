@@ -6,7 +6,7 @@ export default function ToggleList({ label, list, current, set }) {
   if (list) itemCurrent = list[current]
 
   return (
-    <div className='flex flex-wrap items-baseline mb-4'>
+    <div className='flex flex-wrap items-baseline mb-8'>
       <span className='m-2 ml-0 font-bold'>{label}</span>
       {list &&
           list.map((item, i) =>

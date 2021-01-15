@@ -1,7 +1,7 @@
 import React from 'react';
 import ToggleList from '../ToggleList';
 import { Notes } from '../SiteDetails';
-import GenerateButton from './GenerateButton';
+// import GenerateButton from './GenerateButton';
 import MassingGoals from './MassingGoals';
 import { Zoning } from '../SiteDetails';
 
@@ -18,19 +18,21 @@ export default function Build({ state, ws}) {
   } = state;
 
   return (
-    <div>
-      <ToggleList
-        label='Scenario'
-        list={scenarios}
-        current={scenarioCurrent}
-        set={setScenario}
-      />
-      <ToggleList
-        label='Site'
-        list={sites}
-        current={siteCurrent}
-        set={setSite}
-      />
+    <>
+      <div className='mb-4'>
+        <ToggleList
+          label='Scenario'
+          list={scenarios}
+          current={scenarioCurrent}
+          set={setScenario}
+        />
+        <ToggleList
+          label='Site'
+          list={sites}
+          current={siteCurrent}
+          set={setSite}
+        />
+      </div>
       <MassingGoals plugin={state.plugin} ws={ws} />
       {/* <GenerateButton ws={ws} label='Envelope' />
       <GenerateButton ws={ws} label='Massing' /> */}
@@ -42,7 +44,7 @@ export default function Build({ state, ws}) {
         sites={sites}
         siteCurrent={siteCurrent}
       /> */}
-    </div>
+    </>
   );
 };
 

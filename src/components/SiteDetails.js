@@ -1,7 +1,7 @@
 import React from 'react';
 
 export function Zoning({ site, scenario }) {
-  if (!site || !scenario) return <div/>
+  if (!site || !scenario) return null
   const zoningParams = site.Scenarios[scenario.ID]
   const zoningRows = Object.entries(zoningParams).map(([k, v], i) => (
     <tr key={i}>
@@ -10,10 +10,10 @@ export function Zoning({ site, scenario }) {
     </tr>
   ))  
   return (
-    <div className='mb-4'>
+    <div className='w-full mb-4'>
       <h3>Zoning</h3>
-      <table>
-        <tbody className='divide-y divide-gray-400'>
+      <table className='w-full'>
+        <tbody className='divide-y divide-blue-200'>
           {zoningRows}
         </tbody>
       </table>
@@ -23,15 +23,15 @@ export function Zoning({ site, scenario }) {
 }
 
 export function Notes({ site }) {
-  if (!site) return <div/>
+  if (!site) return null
   const lots = site.LotIDs.join(', ')
   return (
-    <div className='mb-4 w-full'>
+    <div className='w-full mb-4'>
       <h3>Site Details</h3>
       <table className='w-full'>
-        <tbody className='divide-y divide-gray-400'>
+        <tbody className='divide-y divide-blue-200'>
           <tr>
-            <td>Lots</td>
+            <td>Tax Lots</td>
             <td>{lots}</td>
           </tr>
           <tr>
