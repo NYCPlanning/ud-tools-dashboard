@@ -40,6 +40,7 @@ export default function Summary({ state, ws }) {
         list={zones}
         current={zoneCurrent}
         set={setZone}
+        selectNone
       />
       {/* <AddScenario ws={ws}/> */}
       {/* <AddSite scenarios={scenarios} ws={ws}/> */}

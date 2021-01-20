@@ -1,8 +1,13 @@
 import React from 'react';
 
-export default function ToggleList({ label, list, current, set }) {
-  // if (!list || list.length === 0 ) return null
+export default function ToggleList({ label, list, current, set, selectNone }) {
   let itemCurrent = 0
+
+  const buttonStyle = (id) => {
+    let buttonStyle = 'button'
+    if (itemCurrent.ID === id && !selectNone) buttonStyle = 'button-active'
+    return buttonStyle
+  }
   if (list) itemCurrent = list[current]
 
   return (
@@ -13,7 +18,7 @@ export default function ToggleList({ label, list, current, set }) {
             <div 
               key={item.ID || item.Name} 
               onClick={() => set(item.ID)} 
-              className={`p-2 py-1 mr-2 ${ item.ID === itemCurrent.ID ? 'button-active' : 'button' }`}
+              className={`p-2 py-1 mr-2 ${buttonStyle(item.ID)}`}
             >
               {item.ID || item.Name}
             </div>
